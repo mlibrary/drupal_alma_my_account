@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+      - gem_cache:/gems
+      - tmp:/usr/src/app/tmp
+    env_file:
+      - .env/development/web
+
+volumes:
+  gem_cache:
+  tmp:
