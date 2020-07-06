@@ -1,4 +1,5 @@
 require './app/models/requester'
+require 'date'
 
 class Loans
   attr_reader :uniqname
@@ -9,10 +10,12 @@ class Loans
   def list
     loans = @requester.request("users/#{@uniqname}/loans")
     loans['item_loan'].map.with_index do |loan, index|
+      item_url = "bibs/#{loan['mms_id']}/holdings/#{loan['holding_id']}/items/#{loan['item_id']}"
+      item = @requester.request(item_url)
       { 
-        'duedate' => loan['due_date'],
-        'isbn'    => '', #get from item record
-        'status'      => '', #must be calculated
+        'duedate' => format_date(loan['due_date']),
+        'isbn'    => item['bib_data']['isbn'], #get from item record
+        'status'      => '', #not sure how this works; see notes
         'author'  => loan['author'],
         'title'   => loan['title'],
         'barcode'   => loan['item_barcode'],
@@ -21,10 +24,16 @@ class Loans
         'id'          => loan['mms_id'], 
         'bib_library' => '',  #don't know how this will work in Alma (MIU01/MIU30)
         'location'    => loan['library']['desc'], 
-        'format'      => '', #get from item record
+        'format'      => [item['item_data']['physical_material_type']['desc']], #get from item record
         'num'         => index, 
   
       }
     end
+  end
+
+  private
+ 
+  def format_date(date)
+    DateTime.parse(date).strftime("%Y%m%d %H%M")
   end
 end

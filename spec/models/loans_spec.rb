@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'json'
 require './app/models/loans'
+require './spec/doubles/requester_double'
 
 describe Loans, 'initialize' do
   it "initializes with uniqname" do
@@ -10,12 +11,18 @@ describe Loans, 'initialize' do
 end
 describe Loans, 'list' do
   before(:each) do 
-    @json = JSON.parse(File.read("./spec/fixtures/loans.json")) 
+    @requests = {
+      'users/jbister/loans' => JSON.parse(File.read('./spec/fixtures/loans.json')),
+      'bibs/991246960000541/holdings/225047730000541/items/235047720000541' =>
+        JSON.parse(File.read('./spec/fixtures/basics_of_singing_item.json')),
+      'bibs/991408490000541/holdings/229209090000521/items/235561180000541' =>
+        JSON.parse(File.read('./spec/fixtures/plain_words_on_singing_item.json')),
+    }
     @expected_output = 
       [
         {
-          "duedate"=>"2018-07-28T22:00:00Z", 
-          "isbn"=>"", 
+          "duedate"=>"20180728 2200", 
+          "isbn"=>"0028723406", 
           "status"=>"", 
           "author"=>"Schmidt, Jan,", 
           "title"=>"Basics of singing / [compiled by] Jan Schmidt.", 
@@ -25,11 +32,11 @@ describe Loans, 'list' do
           "id"=>"991246960000541", 
           "bib_library"=>"", 
           "location"=>"Music Library", 
-          "format"=>"", 
+          "format"=>['Music Score'], 
           "num"=>0
         }, {
-          "duedate"=>"2018-07-28T22:00:00Z", 
-          "isbn"=>"", 
+          "duedate"=>"20180728 2200", 
+          "isbn"=>nil, 
           "status"=>"", 
           "author"=>"Shakespeare, William,", 
           "title"=>"Plain words on singing / by William Shakespeare ..", 
@@ -39,20 +46,19 @@ describe Loans, 'list' do
           "id"=>"991408490000541", 
           "bib_library"=>"", 
           "location"=>"Music Library", 
-          "format"=>"", 
+          "format"=>["Book"], 
           "num"=>1
         }
       ]
   end
   it "returns correct number of items list of loans" do
-    dbl = double("Requester", :request => @json)
-    loans = Loans.new(uniqname: 'testuser', requester: dbl)
+    dbl = RequesterDouble.new(@requests)
+    loans = Loans.new(uniqname: 'jbister', requester: dbl)
     expect(loans.list.count).to eq(2) 
   end
   it "reutrns correct items" do
-    dbl = double("Requester", :request => @json)
-    loans = Loans.new(uniqname: 'testuser', requester: dbl)
-    
+    dbl = RequesterDouble.new(@requests)
+    loans = Loans.new(uniqname: 'jbister', requester: dbl)
     expect(loans.list).to eq(@expected_output) 
   end
 end
