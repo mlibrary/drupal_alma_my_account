@@ -12,27 +12,27 @@ end
 describe Patron, 'list' do
   it "gets correct patron info" do
     requests = {
-      'users/jbister/?user_id_type=all_unique&view=full&expand=none' => JSON.parse(File.read('./spec/fixtures/jbister_patron.json'))
+      'users/johns/?user_id_type=all_unique&view=full&expand=none' => JSON.parse(File.read('./spec/fixtures/johns_patron.json'))
     }
-    dbl = RequesterDouble.new(@requests)
-  #  expected_patron =  Hash.new (
-  #       'uniqname' => 'mrio',
-  #       'first_name' => ' Monique',
-  #       'last_name' => 'Rio',
-  #       'email' => 'mrio@umich.edu',
-  #       'college' => 'MIU50',
-  #       'bor_status' => '02',
-  #       'booking_permission' => 'Y',
-  #       'campus' => 'UMAA',
-  #       'barcode' => '000000377644',
-  #       'address_1' => 'Library Info Tech - AIM',
-  #       'address_2' => '300 Hatcher North',
-  #       'zip' => '481091190',
-  #       'phone' => '555-555-5555',
-  #       'expires' => '20201010',
-  #    )
-    patron = Patron.new(uniqname: 'jbister')
-    expect(patron.list.empty?).to be_falsey
+    dbl = RequesterDouble.new(requests)
+    expected_patron =  {
+         'uniqname' => 'johns',
+         'first_name' => 'John',
+         'last_name' => 'Smith',
+         'email' => 'johns@mylib.org',
+         'college' => nil, #Don't know
+         'bor_status' => nil, #Don't know
+         'booking_permission' => nil, #Don't know
+         'campus' => 'Main', 
+         'barcode' => nil, #Don't know
+         'address_1' => 'Graduate Library',
+         'address_2' => '3598 N. Buckingham Road',
+         'zip' => '85054',
+         'phone' => '18005882300',
+         'expires' => '20300116',
+      }
+   patron = Patron.new(uniqname: 'johns', requester: dbl)
+   expect(patron.list).to eq(expected_patron)
   end
 end
 

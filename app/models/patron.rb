@@ -1,4 +1,5 @@
 require './app/models/requester'
+require 'date'
 
 class Patron
   attr_reader :uniqname
@@ -8,27 +9,61 @@ class Patron
   end
   def list
     patron = @requester.request("users/#{@uniqname}/?user_id_type=all_unique&view=full&expand=none")
-    #patron['item_loan'].map.with_index do |loan, index|
-    #  item = @requester.request(item_url)
-    #  { 
-    #    'duedate' => format_date(loan['due_date']),
-    #    'isbn'    => item['bib_data']['isbn'], #get from item record
-    #    'status'      => '', #not sure how this works; see notes
-    #    'author'  => loan['author'],
-    #    'title'   => loan['title'],
-    #    'barcode'   => loan['item_barcode'],
-    #    'call_number' => loan['call_number'], 
-    #    'description' => loan['description'], 
-    #    'id'          => loan['mms_id'], 
-    #    'bib_library' => '',  #don't know how this will work in Alma (MIU01/MIU30)
-    #    'location'    => loan['library']['desc'], 
-    #    'format'      => [item['item_data']['physical_material_type']['desc']], #get from item record
-    #    'num'         => index, 
-  
-    #  }
-    #end
+    contact_info = ContactInfo.new(patron['contact_info'])
+   { 
+         'uniqname' => patron['primary_id'],
+         'first_name' => patron['first_name'],
+         'last_name' => patron['last_name'],
+         'email' => contact_info.email,
+         'college' => nil, #Don't know
+         'bor_status' => nil, #Don't know
+         'booking_permission' => nil, #Don't know
+         'campus' => patron['campus_code']['value'],
+         'barcode' => nil, #Don't know
+         'address_1' => contact_info.address_1,
+         'address_2' => contact_info.address_2,
+         'zip' => contact_info.zip,
+         'phone' => contact_info.phone,
+         'expires' => format_date(patron['expiry_date']),
+    }
   end
 
   private
- 
+
+  def format_date(date)
+    DateTime.parse(date).strftime('%Y%m%d')
+  end
+end
+
+class ContactInfo
+  
+  def initialize(contact)
+    @contact = contact
+  end
+
+  def email
+    preferred = @contact['email'].find{|i| i['preferred'] == 'true' }
+    preferred['email_address']
+  end
+
+  def address_1
+    address['line1']
+  end 
+  def address_2
+    address['line2']
+  end 
+
+  def zip
+    address['postal_code']
+  end
+
+  def phone
+    preferred = @contact['phone'].find{|i| i['preferred'] == 'true' }
+    preferred['phone_number']
+  end
+
+  private
+  def address
+    @contact['address'].find{|i| i['preferred'] == 'true' }
+  end
 end

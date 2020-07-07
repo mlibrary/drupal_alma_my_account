@@ -1,0 +1,398 @@
+{
+  "link": "",
+  "record_type": {
+    "desc": "Staff",
+    "value": "STAFF"
+  },
+  "primary_id": "johns",
+  "first_name": "John",
+  "middle_name": "W",
+  "last_name": "Smith",
+  "full_name": "John W Smith",
+  "pin_number": "4554",
+  "user_title": {
+    "desc": "string",
+    "value": ""
+  },
+  "job_category": {
+    "desc": "string",
+    "value": "Cataloger"
+  },
+  "job_description": "The best cataloger",
+  "gender": {
+    "desc": "Male",
+    "value": "MALE"
+  },
+  "user_group": {
+    "desc": "Faculty",
+    "value": "FACULTY"
+  },
+  "campus_code": {
+    "desc": "string",
+    "value": "Main"
+  },
+  "web_site_url": "",
+  "cataloger_level": {
+    "desc": "string",
+    "value": ""
+  },
+  "preferred_language": {
+    "desc": "English",
+    "value": "en"
+  },
+  "birth_date": "1979-01-11Z",
+  "expiry_date": "2030-01-16Z",
+  "purge_date": "2024-05-30Z",
+  "account_type": {
+    "desc": "string",
+    "value": "INTERNAL"
+  },
+  "external_id": "",
+  "password": "12345",
+  "force_password_change": "TRUE",
+  "status": {
+    "desc": "Active",
+    "value": "ACTIVE"
+  },
+  "status_date": "2016-01-01Z",
+  "requests": {
+    "link": "string",
+    "value": "0"
+  },
+  "loans": {
+    "link": "string",
+    "value": "5"
+  },
+  "fees": {
+    "link": "string",
+    "value": ""
+  },
+  "contact_info": {
+    "address": [
+      {
+        "preferred": "true",
+        "segment_type": "Internal",
+        "line1": "Graduate Library",
+        "line2": "3598 N. Buckingham Road",
+        "line3": "",
+        "line4": "",
+        "line5": "",
+        "city": "Scottsdale",
+        "state_province": "AZ",
+        "postal_code": "85054",
+        "country": {
+          "desc": "string",
+          "value": "USA"
+        },
+        "address_note": "",
+        "start_date": "2024-05-30Z",
+        "end_date": "2024-05-30Z",
+        "address_type": [
+          {
+            "desc": "string",
+            "value": "home"
+          }
+        ]
+      }
+    ],
+    "email": [
+      {
+        "preferred": "true",
+        "segment_type": "Internal",
+        "email_address": "johns@mylib.org",
+        "description": "",
+        "email_type": [
+          {
+            "desc": "string",
+            "value": "personal"
+          }
+        ]
+      }
+    ],
+    "phone": [
+      {
+        "preferred": "true",
+        "preferred_sms": "true",
+        "segment_type": "Internal",
+        "phone_number": "18005882300",
+        "phone_type": [
+          {
+            "desc": "string",
+            "value": "home"
+          }
+        ]
+      }
+    ]
+  },
+  "user_identifier": [
+    {
+      "segment_type": "Internal",
+      "id_type": {
+        "desc": "string",
+        "value": "UNIV_ID"
+      },
+      "value": "johns691",
+      "note": "",
+      "status": ""
+    }
+  ],
+  "user_role": [
+    {
+      "status": {
+        "desc": "string",
+        "value": "NEW"
+      },
+      "scope": {
+        "desc": "string",
+        "value": ""
+      },
+      "role_type": {
+        "desc": "string",
+        "value": "200"
+      },
+      "expiry_date": "2024-05-30Z",
+      "parameter": [
+        {
+          "type": {
+            "desc": "string",
+            "value": ""
+          },
+          "scope": {
+            "desc": "string",
+            "value": ""
+          },
+          "value": {
+            "desc": "string",
+            "value": "CircDeskOp"
+          }
+        }
+      ]
+    }
+  ],
+  "user_block": [
+    {
+      "segment_type": "Internal",
+      "block_type": {
+        "desc": "Loan",
+        "value": "LOAN"
+      },
+      "block_description": {
+        "desc": "Consortia",
+        "value": "CONSORTIA"
+      },
+      "block_status": "",
+      "block_note": "",
+      "created_by": "",
+      "created_date": "2024-05-30T09:30:10Z",
+      "expiry_date": "2019-12-18T14:36:48.659Z",
+      "item_loan_id": "1200186133000121"
+    }
+  ],
+  "user_note": [
+    {
+      "segment_type": "External",
+      "note_type": {
+        "desc": "string",
+        "value": "ERP"
+      },
+      "note_text": "ERP user note example",
+      "user_viewable": "false",
+      "popup_note": "false",
+      "created_by": "",
+      "created_date": "2024-05-30T09:30:10Z"
+    }
+  ],
+  "user_statistic": [
+    {
+      "segment_type": "External",
+      "statistic_category": {
+        "desc": "string",
+        "value": "LOCAL"
+      },
+      "category_type": {
+        "desc": "string",
+        "value": "COLLEGE"
+      },
+      "statistic_note": ""
+    }
+  ],
+  "proxy_for_user": [
+    {
+      "link": "",
+      "primary_id": "johns",
+      "full_name": "John W Smith"
+    }
+  ],
+  "rs_library": [
+    {
+      "code": {
+        "desc": "string",
+        "value": ""
+      }
+    }
+  ],
+  "library_notice": [
+    {
+      "code": {
+        "desc": "string",
+        "value": "FulUserBorrowingActivityLetter"
+      },
+      "value": "false"
+    }
+  ],
+  "source_link_id": "2541663001021",
+  "source_institution_code": "2541663001021",
+  "linking_id": "5131558001021",
+  "pref_first_name": "John",
+  "pref_middle_name": "W",
+  "pref_last_name": "Smith",
+  "pref_name_suffix": "Junior",
+  "is_researcher": "false",
+  "researcher": {
+    "profile_image_url": "",
+    "position": {
+      "desc": "Senior lecturer",
+      "value": ""
+    },
+    "portal_profile": {
+      "desc": "Yes",
+      "value": "true"
+    },
+    "auto_capture": "",
+    "research_center": "",
+    "default_publication_language": {
+      "desc": "English",
+      "value": "hi"
+    },
+    "researcher_alternate_email": [
+      {
+        "email_address": "jsmith@gmail.com"
+      }
+    ],
+    "researcher_organization_affiliation": [
+      {
+        "organization_code": "1545584600011021",
+        "organization_name": "",
+        "start_date": "2013-08-06Z",
+        "end_date": "2020-04-04Z",
+        "position": {
+          "desc": "Senior lecturer",
+          "value": ""
+        },
+        "title": "Professor of Clinical Psychology",
+        "positionOrder": "1"
+      }
+    ],
+    "researcher_previous_organization_affiliation": [
+      {
+        "organization_code": "1545584600011021",
+        "organization_name": "",
+        "start_date": "2013-08-06Z",
+        "end_date": "2020-04-04Z",
+        "position": {
+          "desc": "Senior lecturer",
+          "value": ""
+        },
+        "title": "Professor of Clinical Psychology",
+        "positionOrder": "1"
+      }
+    ],
+    "researcher_external_organization_affiliation": [
+      {
+        "organization_code": "1545584600011021",
+        "organization_name": "",
+        "start_date": "2013-08-06Z",
+        "end_date": "2020-04-04Z",
+        "position": {
+          "desc": "Senior lecturer",
+          "value": ""
+        },
+        "title": "Professor of Clinical Psychology",
+        "positionOrder": "1"
+      }
+    ],
+    "researcher_previous_external_organization_affiliation": [
+      {
+        "organization_code": "1545584600011021",
+        "organization_name": "",
+        "start_date": "2013-08-06Z",
+        "end_date": "2020-04-04Z",
+        "position": {
+          "desc": "Senior lecturer",
+          "value": ""
+        },
+        "title": "Professor of Clinical Psychology",
+        "positionOrder": "1"
+      }
+    ],
+    "researcher_name_variant": [
+      {
+        "first_name": "John",
+        "middle_name": "W",
+        "last_name": "Smith",
+        "name_suffix": "Smith"
+      }
+    ],
+    "researcher_engagement_types": {
+      "researcher_engagement_type": {
+        "researcher_engagement": {
+          "desc": "Media",
+          "value": "Media"
+        },
+        "engagement_end_date": "2020-04-08Z"
+      }
+    },
+    "researcher_research_topic": [
+      {
+        "desc": "string",
+        "value": "Agriculture"
+      }
+    ],
+    "researcher_keyword": [
+      {
+        "value": ""
+      }
+    ],
+    "researcher_association": [
+      {
+        "value": ""
+      }
+    ],
+    "researcher_language": [
+      {
+        "desc": "string",
+        "value": ""
+      }
+    ],
+    "researcher_honor": [
+      {
+        "organization_code": "1545584600011021",
+        "organization_name": "",
+        "title": "title of researcher's honor",
+        "time_period": ""
+      }
+    ],
+    "researcher_education": [
+      {
+        "organization_code": "1545584600011021",
+        "organization_name": "",
+        "degree": "",
+        "year": "2003",
+        "field_of_study": ""
+      }
+    ],
+    "researcher_description": [
+      {
+        "description": ""
+      }
+    ],
+    "researcher_webpage": [
+      {
+        "url": "",
+        "title": "",
+        "description": "",
+        "type": ""
+      }
+    ]
+  }
+}
