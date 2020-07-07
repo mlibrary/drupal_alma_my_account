@@ -10,11 +10,12 @@ describe Patron, 'initialize' do
   end
 end
 describe Patron, 'list' do
-  it "gets correct patron info" do
-    requests = {
-      'users/johns/?user_id_type=all_unique&view=full&expand=none' => JSON.parse(File.read('./spec/fixtures/johns_patron.json'))
+  before(:each) do
+    @requests = {
+      'users/johns?user_id_type=all_unique&view=full&expand=none' => JSON.parse(File.read('./spec/fixtures/johns_patron.json'))
     }
-    dbl = RequesterDouble.new(requests)
+  end
+  it "gets correct patron info" do
     expected_patron =  {
          'uniqname' => 'johns',
          'first_name' => 'John',
@@ -31,8 +32,28 @@ describe Patron, 'list' do
          'phone' => '18005882300',
          'expires' => '20300116',
       }
+   dbl = RequesterDouble.new(@requests)
    patron = Patron.new(uniqname: 'johns', requester: dbl)
    expect(patron.list).to eq(expected_patron)
   end
+  it 'handles empty phone block' do
+    @requests.values[0]['contact_info']['phone'] = []
+   dbl = RequesterDouble.new(@requests)
+   patron = Patron.new(uniqname: 'johns', requester: dbl)
+   expect(patron.list['phone']).to eq('')
+  end
+  it 'handles empty email block' do
+    @requests.values[0]['contact_info']['email'] = []
+   dbl = RequesterDouble.new(@requests)
+   patron = Patron.new(uniqname: 'johns', requester: dbl)
+   expect(patron.list['email']).to eq('')
+  end
+
+  it 'handles missing expiry_date' do
+   @requests.values[0].delete('expiry_date')
+   dbl = RequesterDouble.new(@requests)
+   patron = Patron.new(uniqname: 'johns', requester: dbl)
+   expect(patron.list['expires']).to eq('')
+  end 
 end
 

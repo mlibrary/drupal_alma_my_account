@@ -8,7 +8,7 @@ class Patron
     @requester = requester
   end
   def list
-    patron = @requester.request("users/#{@uniqname}/?user_id_type=all_unique&view=full&expand=none")
+    patron = @requester.request("users/#{@uniqname}?user_id_type=all_unique&view=full&expand=none")
     contact_info = ContactInfo.new(patron['contact_info'])
    { 
          'uniqname' => patron['primary_id'],
@@ -31,7 +31,7 @@ class Patron
   private
 
   def format_date(date)
-    DateTime.parse(date).strftime('%Y%m%d')
+    date ? DateTime.parse(date).strftime('%Y%m%d') : ''
   end
 end
 
@@ -42,8 +42,8 @@ class ContactInfo
   end
 
   def email
-    preferred = @contact['email'].find{|i| i['preferred'] == 'true' }
-    preferred['email_address']
+    preferred = @contact['email'].find{|i| i['preferred'].to_s == 'true' }
+    preferred ? preferred['email_address'] : ''
   end
 
   def address_1
@@ -58,12 +58,12 @@ class ContactInfo
   end
 
   def phone
-    preferred = @contact['phone'].find{|i| i['preferred'] == 'true' }
-    preferred['phone_number']
+    preferred = @contact['phone'].find{|i| i['preferred'].to_s == 'true' }
+    preferred ? preferred['phone_number'] : ''
   end
 
   private
   def address
-    @contact['address'].find{|i| i['preferred'] == 'true' }
+    @contact['address'].find{|i| i['preferred'].to_s == 'true' }
   end
 end
