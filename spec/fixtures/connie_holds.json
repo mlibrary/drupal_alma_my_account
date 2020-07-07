@@ -1,0 +1,40 @@
+{
+  "user_request": [
+    {
+      "user_primary_id": "connie",
+      "request_id": "1332745510000521",
+      "request_type": "HOLD",
+      "request_sub_type": {
+        "value": "PATRON_PHYSICAL",
+        "desc": "Patron physical item request"
+      },
+      "mms_id": "99948430000541",
+      "title": "From Grieg to Brahms.",
+      "author": "Mason, Daniel Gregory, 1873-1953.",
+      "description": null,
+      "pickup_location": "Music Library",
+      "pickup_location_type": "LIBRARY",
+      "pickup_location_library": "MUS",
+      "managed_by_library": "",
+      "managed_by_circulation_desk": "",
+      "managed_by_library_code": "",
+      "managed_by_circulation_desk_code": "",
+      "material_type": {
+        "value": "BOOK",
+        "desc": "Book"
+      },
+      "volume": "",
+      "issue": "",
+      "part": "",
+      "date_of_publication": "",
+      "comment": null,
+      "request_status": "NOT_STARTED",
+      "place_in_queue": 1,
+      "request_date": "2018-06-28Z",
+      "request_time": "2018-06-28T16:46:23.931Z",
+      "item_id": "234118390000541",
+      "barcode": "58782"
+    }
+  ],
+  "total_record_count": 1
+}
