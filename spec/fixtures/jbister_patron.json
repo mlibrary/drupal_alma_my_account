@@ -1,0 +1,136 @@
+{
+  "record_type": {
+    "value": "PUBLIC",
+    "desc": "Public"
+  },
+  "primary_id": "jbister",
+  "first_name": "Julie",
+  "middle_name": "",
+  "last_name": "Bister",
+  "full_name": "Julie Bister",
+  "user_title": {
+    "value": "",
+    "desc": ""
+  },
+  "job_category": {
+    "value": "",
+    "desc": ""
+  },
+  "job_description": "",
+  "gender": {
+    "value": "",
+    "desc": ""
+  },
+  "user_group": {
+    "value": "UNDRGRD",
+    "desc": "Undergraduate Student"
+  },
+  "campus_code": {
+    "value": null,
+    "desc": ""
+  },
+  "web_site_url": "",
+  "cataloger_level": {
+    "value": "00",
+    "desc": "[00] Default Level"
+  },
+  "preferred_language": {
+    "value": "en",
+    "desc": "English"
+  },
+  "account_type": {
+    "value": "INTERNAL",
+    "desc": "Internal"
+  },
+  "external_id": "",
+  "password": "",
+  "force_password_change": "",
+  "status": {
+    "value": "ACTIVE",
+    "desc": "Active"
+  },
+  "status_date": "2015-09-04Z",
+  "requests": null,
+  "loans": null,
+  "fees": null,
+  "contact_info": {
+    "address": [
+      {
+        "line1": "1350 Euclid Avenue",
+        "line2": null,
+        "line3": null,
+        "line4": null,
+        "line5": null,
+        "city": "Arlington Heights",
+        "state_province": "IL",
+        "postal_code": "",
+        "country": {
+          "value": "",
+          "desc": ""
+        },
+        "address_note": "",
+        "start_date": "2015-09-04Z",
+        "preferred": true,
+        "segment_type": "Internal",
+        "address_type": [
+          {
+            "value": "school",
+            "desc": "School"
+          }
+        ]
+      }
+    ],
+    "email": [
+      {
+        "email_address": "jbister@alma.net",
+        "description": null,
+        "preferred": true,
+        "segment_type": "Internal",
+        "email_type": [
+          {
+            "value": "school",
+            "desc": "School"
+          }
+        ]
+      }
+    ],
+    "phone": []
+  },
+  "pref_first_name": "",
+  "pref_middle_name": "",
+  "pref_last_name": "",
+  "pref_name_suffix": "",
+  "is_researcher": false,
+  "researcher": null,
+  "link": null,
+  "user_identifier": [],
+  "user_role": [
+    {
+      "status": {
+        "value": "ACTIVE",
+        "desc": "Active"
+      },
+      "scope": {
+        "value": "API_GUEST_INST",
+        "desc": "API Guest Institution"
+      },
+      "role_type": {
+        "value": "200",
+        "desc": "Patron"
+      },
+      "parameter": []
+    }
+  ],
+  "user_block": [],
+  "user_note": [],
+  "user_statistic": [],
+  "proxy_for_user": [],
+  "rs_library": [
+    {
+      "code": {
+        "value": "RES_SHARE",
+        "desc": "Resource Sharing Library"
+      }
+    }
+  ]
+}

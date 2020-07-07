@@ -4,5 +4,4 @@ class TransactionsController < ApplicationController
     loans = Loans.new(uniqname: params[:id])
     render json: loans.list
   end
-
 end
