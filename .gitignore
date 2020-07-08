@@ -6,6 +6,8 @@
 
 # Ignore environment variables
 .env
+# Ignore scripts to help me out
+lib/scripts
 
 # Ignore bundler config.
 /.bundle
