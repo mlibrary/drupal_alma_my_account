@@ -12,7 +12,7 @@ end
 describe Patron, 'list' do
   before(:each) do
     @requests = {
-      'users/johns?user_id_type=all_unique&view=full&expand=none' => JSON.parse(File.read('./spec/fixtures/johns_patron.json'))
+      '/users/johns?user_id_type=all_unique&view=full&expand=none' => JSON.parse(File.read('./spec/fixtures/johns_patron.json'))
     }
   end
   it "gets correct patron info" do

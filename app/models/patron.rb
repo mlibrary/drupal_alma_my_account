@@ -8,7 +8,7 @@ class Patron
     @requester = requester
   end
   def list
-    patron = @requester.request("users/#{@uniqname}?user_id_type=all_unique&view=full&expand=none")
+    patron = @requester.request("/users/#{@uniqname}?user_id_type=all_unique&view=full&expand=none")
     contact_info = ContactInfo.new(patron['contact_info'])
    { 
          'uniqname' => patron['primary_id'],

@@ -12,7 +12,7 @@ end
 describe Requests, 'list' do
   before(:each) do 
     @requests = {
-      'users/connie/requests' => JSON.parse(File.read('./spec/fixtures/connie_holds.json')),
+      '/users/connie/requests' => JSON.parse(File.read('./spec/fixtures/connie_holds.json')),
     }
     @expected_output = {
       'B' => [],  
@@ -49,5 +49,11 @@ describe Requests, 'list' do
     dbl = RequesterDouble.new(@requests)
     requests = Requests.new(uniqname: 'connie', requester: dbl)
     expect(requests.list).to eq(@expected_output) 
+  end
+  it "handles empty request" do
+    @requests[@requests.keys[0]]['total_record_count'] = 0
+    dbl = RequesterDouble.new(@requests)
+    requests = Requests.new(uniqname: 'connie', requester: dbl)
+    expect(requests.list).to eq({'B' => [],'H' => []})
   end
 end

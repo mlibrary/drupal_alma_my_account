@@ -1,0 +1,129 @@
+{
+    "bib_data": {
+        "author": "Coyle, Daniel.",
+        "complete_edition": "",
+        "date_of_publication": "2009.",
+        "isbn": "055380684X (hardcover)",
+        "issn": null,
+        "link": "https://api-na.hosted.exlibrisgroup.com/almaws/v1/bibs/991544900000541",
+        "mms_id": "991544900000541",
+        "network_number": [
+            "(TrN)65695-train20072_c2db",
+            "65702",
+            "(OCoLC)ocn259265998",
+            "15532598"
+        ],
+        "place_of_publication": "New York :",
+        "publisher_const": "Bantam Books",
+        "title": "The talent code : greatest isn't born. It's grown. Here's how. /"
+    },
+    "holding_data": {
+        "accession_number": "",
+        "call_number": "BF431 .C69 2009",
+        "call_number_type": {
+            "desc": "Library of Congress classification",
+            "value": "0"
+        },
+        "copy_id": "0",
+        "holding_id": "226014860000541",
+        "in_temp_location": false,
+        "link": "https://api-na.hosted.exlibrisgroup.com/almaws/v1/bibs/991544900000541/holdings/226014860000541",
+        "temp_call_number": "",
+        "temp_call_number_type": {
+            "desc": null,
+            "value": ""
+        },
+        "temp_library": {
+            "desc": null,
+            "value": null
+        },
+        "temp_location": {
+            "desc": null,
+            "value": null
+        },
+        "temp_policy": {
+            "desc": null,
+            "value": ""
+        }
+    },
+    "item_data": {
+        "alternative_call_number": "",
+        "alternative_call_number_type": {
+            "desc": null,
+            "value": ""
+        },
+        "awaiting_reshelving": false,
+        "barcode": "15532598",
+        "base_status": {
+            "desc": "Item in place",
+            "value": "1"
+        },
+        "chronology_i": "",
+        "chronology_j": "",
+        "chronology_k": "",
+        "chronology_l": "",
+        "chronology_m": "",
+        "creation_date": "2011-12-17Z",
+        "description": "",
+        "edition": null,
+        "enumeration_a": "",
+        "enumeration_b": "",
+        "enumeration_c": "",
+        "enumeration_d": "",
+        "enumeration_e": "",
+        "enumeration_f": "",
+        "enumeration_g": "",
+        "enumeration_h": "",
+        "fulfillment_note": "",
+        "imprint": null,
+        "internal_note_1": "",
+        "internal_note_2": "",
+        "internal_note_3": "",
+        "inventory_number": "",
+        "inventory_price": "",
+        "is_magnetic": false,
+        "language": null,
+        "library": {
+            "desc": "Music Library",
+            "value": "MUS"
+        },
+        "location": {
+            "desc": "Stacks",
+            "value": "music"
+        },
+        "modification_date": "2018-06-13Z",
+        "pages": "",
+        "physical_condition": {
+            "desc": null,
+            "value": null
+        },
+        "physical_material_type": {
+            "desc": "Book",
+            "value": "BOOK"
+        },
+        "pid": "236014850000541",
+        "pieces": "1",
+        "po_line": "",
+        "policy": {
+            "desc": null,
+            "value": ""
+        },
+        "process_type": {
+            "desc": null,
+            "value": ""
+        },
+        "provenance": {
+            "desc": null,
+            "value": ""
+        },
+        "public_note": "",
+        "receiving_operator": "",
+        "requested": false,
+        "statistics_note_1": "",
+        "statistics_note_2": "",
+        "statistics_note_3": "",
+        "storage_location_id": "",
+        "year_of_issue": ""
+    },
+    "link": "https://api-na.hosted.exlibrisgroup.com/almaws/v1/bibs/991544900000541/holdings/226014860000541/items/236014850000541"
+}

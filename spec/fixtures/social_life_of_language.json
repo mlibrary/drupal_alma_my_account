@@ -1,0 +1,127 @@
+{
+    "bib_data": {
+        "author": "Sankoff, Gillian.",
+        "complete_edition": "",
+        "date_of_publication": "1980.",
+        "isbn": "0812277716",
+        "issn": null,
+        "link": "https://api-na.hosted.exlibrisgroup.com/almaws/v1/bibs/991040390000541",
+        "mms_id": "991040390000541",
+        "network_number": [
+            "(TrN)13908-train20072_c2db",
+            "79005048 //r89"
+        ],
+        "place_of_publication": "Philadelphia :",
+        "publisher_const": "University of Pennsylvania Press",
+        "title": "The social life of language /"
+    },
+    "holding_data": {
+        "accession_number": "",
+        "call_number": "P35 .S2",
+        "call_number_type": {
+            "desc": "Library of Congress classification",
+            "value": "0"
+        },
+        "copy_id": "0",
+        "holding_id": "224409530000541",
+        "in_temp_location": false,
+        "link": "https://api-na.hosted.exlibrisgroup.com/almaws/v1/bibs/991040390000541/holdings/224409530000541",
+        "temp_call_number": "",
+        "temp_call_number_type": {
+            "desc": null,
+            "value": ""
+        },
+        "temp_library": {
+            "desc": null,
+            "value": null
+        },
+        "temp_location": {
+            "desc": null,
+            "value": null
+        },
+        "temp_policy": {
+            "desc": null,
+            "value": ""
+        }
+    },
+    "item_data": {
+        "alternative_call_number": "",
+        "alternative_call_number_type": {
+            "desc": null,
+            "value": ""
+        },
+        "awaiting_reshelving": false,
+        "barcode": "93727",
+        "base_status": {
+            "desc": "Item in place",
+            "value": "1"
+        },
+        "chronology_i": "",
+        "chronology_j": "",
+        "chronology_k": "",
+        "chronology_l": "",
+        "chronology_m": "",
+        "creation_date": "2011-12-17Z",
+        "description": "",
+        "edition": null,
+        "enumeration_a": "",
+        "enumeration_b": "",
+        "enumeration_c": "",
+        "enumeration_d": "",
+        "enumeration_e": "",
+        "enumeration_f": "",
+        "enumeration_g": "",
+        "enumeration_h": "",
+        "fulfillment_note": "",
+        "imprint": null,
+        "internal_note_1": "",
+        "internal_note_2": "",
+        "internal_note_3": "",
+        "inventory_number": "",
+        "inventory_price": "",
+        "is_magnetic": false,
+        "language": null,
+        "library": {
+            "desc": "Main Library",
+            "value": "MAIN"
+        },
+        "location": {
+            "desc": "Stacks",
+            "value": "main"
+        },
+        "modification_date": "2018-06-13Z",
+        "pages": "",
+        "physical_condition": {
+            "desc": null,
+            "value": null
+        },
+        "physical_material_type": {
+            "desc": "Book",
+            "value": "BOOK"
+        },
+        "pid": "234409520000541",
+        "pieces": "1",
+        "po_line": "",
+        "policy": {
+            "desc": null,
+            "value": ""
+        },
+        "process_type": {
+            "desc": null,
+            "value": ""
+        },
+        "provenance": {
+            "desc": null,
+            "value": ""
+        },
+        "public_note": "",
+        "receiving_operator": "",
+        "requested": false,
+        "statistics_note_1": "",
+        "statistics_note_2": "",
+        "statistics_note_3": "",
+        "storage_location_id": "",
+        "year_of_issue": ""
+    },
+    "link": "https://api-na.hosted.exlibrisgroup.com/almaws/v1/bibs/991040390000541/holdings/224409530000541/items/234409520000541"
+}

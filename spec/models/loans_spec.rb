@@ -12,10 +12,10 @@ end
 describe Loans, 'list' do
   before(:each) do 
     @requests = {
-      'users/jbister/loans' => JSON.parse(File.read('./spec/fixtures/loans.json')),
-      'bibs/991246960000541/holdings/225047730000541/items/235047720000541' =>
+      '/users/jbister/loans' => JSON.parse(File.read('./spec/fixtures/loans.json')),
+      '/bibs/991246960000541/holdings/225047730000541/items/235047720000541' =>
         JSON.parse(File.read('./spec/fixtures/basics_of_singing_item.json')),
-      'bibs/991408490000541/holdings/229209090000521/items/235561180000541' =>
+      '/bibs/991408490000541/holdings/229209090000521/items/235561180000541' =>
         JSON.parse(File.read('./spec/fixtures/plain_words_on_singing_item.json')),
     }
     @expected_output = 
@@ -60,5 +60,11 @@ describe Loans, 'list' do
     dbl = RequesterDouble.new(@requests)
     loans = Loans.new(uniqname: 'jbister', requester: dbl)
     expect(loans.list).to eq(@expected_output) 
+  end
+  it "handles empty loans" do
+    @requests[@requests.keys[0]]['total_record_count'] = 0
+    dbl = RequesterDouble.new(@requests)
+    loans = Loans.new(uniqname: 'jbister', requester: dbl)
+    expect(loans.list).to eq([])
   end
 end

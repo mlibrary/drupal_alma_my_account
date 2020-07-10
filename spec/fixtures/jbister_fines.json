@@ -105,41 +105,9 @@
         }
       ],
       "link": "https://api-na.hosted.exlibrisgroup.com/almaws/v1/users/jbister/fees/690390050000521"
-    },
-    {
-      "id": "690390110000521",
-      "type": {
-        "value": "OVERDUEFINE",
-        "desc": "Overdue fine"
-      },
-      "status": {
-        "value": "ACTIVE",
-        "desc": "Active"
-      },
-      "user_primary_id": {
-        "value": "jbister",
-        "link": "https://api-na.hosted.exlibrisgroup.com/almaws/v1/users/jbister"
-      },
-      "balance": 25,
-      "remaining_vat_amount": 0,
-      "original_amount": 25,
-      "original_vat_amount": 0,
-      "creation_time": "2016-05-31T18:23:58.625Z",
-      "status_time": "2016-05-31T18:23:58.625Z",
-      "comment": "Date generated: 05/31/2016, Due: 12/10/2015, Fine Policy/ies:  Overdue fine policy: 2.50 Open Days Overdue Fine , Action: Renewed",
-      "owner": {
-        "value": "MUS",
-        "desc": "Music Library"
-      },
-      "title": "Snakes! guillotines! electric chairs! : my adventures in the Alice Cooper group / Dennis Dunaway and Chris Hodenfield.",
-      "barcode": {
-        "value": "A1271902",
-        "link": "https://api-na.hosted.exlibrisgroup.com/almaws/v1/items?item_barcode=A1271902"
-      },
-      "link": "https://api-na.hosted.exlibrisgroup.com/almaws/v1/users/jbister/fees/690390110000521"
     }
   ],
-  "total_record_count": 3,
-  "total_sum": 50,
+  "total_record_count": 2,
+  "total_sum": 25,
   "currency": "USD"
 }

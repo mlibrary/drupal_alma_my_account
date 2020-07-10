@@ -8,9 +8,10 @@ class Loans
     @requester = requester
   end
   def list
-    loans = @requester.request("users/#{@uniqname}/loans")
+    loans = @requester.request("/users/#{@uniqname}/loans")
+    return [] if loans['total_record_count'] == 0
     loans['item_loan'].map.with_index do |loan, index|
-      item_url = "bibs/#{loan['mms_id']}/holdings/#{loan['holding_id']}/items/#{loan['item_id']}"
+      item_url = "/bibs/#{loan['mms_id']}/holdings/#{loan['holding_id']}/items/#{loan['item_id']}"
       item = @requester.request(item_url)
       { 
         'duedate' => format_date(loan['due_date']),
@@ -26,7 +27,6 @@ class Loans
         'location'    => loan['library']['desc'], 
         'format'      => [item['item_data']['physical_material_type']['desc']], #get from item record
         'num'         => index, 
-  
       }
     end
   end

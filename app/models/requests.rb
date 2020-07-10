@@ -8,8 +8,9 @@ class Requests
     @requester = requester
   end
   def list
-    requests = @requester.request("users/#{@uniqname}/requests")
+    requests = @requester.request("/users/#{@uniqname}/requests")
     output = {'B' => [], 'H' => [] }
+    return output if requests['total_record_count'] == 0
     requests['user_request'].map.with_index do |request, index|
       my_req = { 
           'title' => request['title'],
@@ -40,7 +41,7 @@ class Requests
   private
  
   def format_date(date)
-    DateTime.parse(date).strftime("%m/%d/%Y")
+    DateTime.parse(date).strftime("%m/%d/%Y") if date
   end
 
   def type(request_type)
