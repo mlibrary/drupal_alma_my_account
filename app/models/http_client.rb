@@ -21,6 +21,10 @@ class HttpClient
     JSON.parse(response.body)
   end
 
+  def delete(url)
+    response = Excon.delete( full_url(url), headers: @headers )
+    JSON.parse(response.body)
+  end
   private
   def full_url(url)
     url.slice!('/almaws/v1') #for barcode locations
