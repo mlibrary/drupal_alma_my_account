@@ -8,7 +8,7 @@ class Loans
     @client = client
   end
   def list
-    loans = @client.get("/users/#{@uniqname}/loans")
+    loans = get
     return [] if loans['total_record_count'] == 0
     loans['item_loan'].map.with_index do |loan, index|
       item_url = "/bibs/#{loan['mms_id']}/holdings/#{loan['holding_id']}/items/#{loan['item_id']}"
@@ -29,6 +29,10 @@ class Loans
         'num'         => index, 
       }
     end
+  end
+
+  def get
+    @client.get("/users/#{@uniqname}/loans")
   end
 
   private
