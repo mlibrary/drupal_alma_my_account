@@ -1,14 +1,14 @@
-require './app/models/requester'
+require './app/models/http_client'
 require 'date'
 
 class Patron
   attr_reader :uniqname
-  def initialize(uniqname:, requester: Requester.new)
+  def initialize(uniqname:, client: HttpClient.new)
     @uniqname = uniqname
-    @requester = requester
+    @client = client
   end
   def list
-    patron = @requester.request("/users/#{@uniqname}?user_id_type=all_unique&view=full&expand=none")
+    patron = @client.get("/users/#{@uniqname}?user_id_type=all_unique&view=full&expand=none")
     contact_info = ContactInfo.new(patron['contact_info'])
    { 
          'uniqname' => patron['primary_id'],

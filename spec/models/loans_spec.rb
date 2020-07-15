@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'json'
 require './app/models/loans'
-require './spec/doubles/requester_double'
+require './spec/doubles/http_client_get_double'
 
 describe Loans, 'initialize' do
   it "initializes with uniqname" do
@@ -52,19 +52,19 @@ describe Loans, 'list' do
       ]
   end
   it "returns correct number of items list of loans" do
-    dbl = RequesterDouble.new(@requests)
-    loans = Loans.new(uniqname: 'jbister', requester: dbl)
+    dbl = HttpClientGetDouble.new(@requests)
+    loans = Loans.new(uniqname: 'jbister', client: dbl)
     expect(loans.list.count).to eq(2) 
   end
   it "reutrns correct items" do
-    dbl = RequesterDouble.new(@requests)
-    loans = Loans.new(uniqname: 'jbister', requester: dbl)
+    dbl = HttpClientGetDouble.new(@requests)
+    loans = Loans.new(uniqname: 'jbister', client: dbl)
     expect(loans.list).to eq(@expected_output) 
   end
   it "handles empty loans" do
     @requests[@requests.keys[0]]['total_record_count'] = 0
-    dbl = RequesterDouble.new(@requests)
-    loans = Loans.new(uniqname: 'jbister', requester: dbl)
+    dbl = HttpClientGetDouble.new(@requests)
+    loans = Loans.new(uniqname: 'jbister', client: dbl)
     expect(loans.list).to eq([])
   end
 end

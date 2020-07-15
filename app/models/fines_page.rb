@@ -2,12 +2,12 @@ require './app/models/fines'
 
 class FinesPage < Fines
   def list
-    fines = @requester.request(url)
+    fines = @client.get(url)
     return [] if fines['total_record_count'] == 0
     charges = Array.new
     payments = Array.new
     fines['fee'].each do |fine|
-      item = @requester.request("/items?item_barcode=#{fine['barcode']['value']}")
+      item = @client.get("/items?item_barcode=#{fine['barcode']['value']}")
       charges.push(element(main: fine, bib: item))
       fine['transaction']&.each do |transaction|
         payments.push({'transaction' => transaction['external_transaction_id'] })

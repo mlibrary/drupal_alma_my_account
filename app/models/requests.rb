@@ -1,14 +1,14 @@
-require './app/models/requester'
+require './app/models/http_client'
 require 'date'
 
 class Requests
   attr_reader :uniqname
-  def initialize(uniqname:, requester: Requester.new)
+  def initialize(uniqname:, client: HttpClient.new)
     @uniqname = uniqname
-    @requester = requester
+    @client = client
   end
   def list
-    requests = @requester.request("/users/#{@uniqname}/requests")
+    requests = @client.get("/users/#{@uniqname}/requests")
     output = {'B' => [], 'H' => [] }
     return output if requests['total_record_count'] == 0
     requests['user_request'].map.with_index do |request, index|

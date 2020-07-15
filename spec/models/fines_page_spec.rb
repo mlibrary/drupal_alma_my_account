@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'json'
 require './app/models/fines_page'
-require './spec/doubles/requester_double'
+require './spec/doubles/http_client_get_double'
 
 describe FinesPage, 'list' do before(:each) do 
     @requests = {
@@ -60,19 +60,19 @@ describe FinesPage, 'list' do before(:each) do
     }
   end
   it "returns correct number of items list of fines" do
-    dbl = RequesterDouble.new(@requests)
-    fines = FinesPage.new(uniqname: 'jbister', requester: dbl)
+    dbl = HttpClientGetDouble.new(@requests)
+    fines = FinesPage.new(uniqname: 'jbister', client: dbl)
     expect(fines.list['charges'].count).to eq(2) 
   end
   it "reutrns correct items" do
-    dbl = RequesterDouble.new(@requests)
-    fines = FinesPage.new(uniqname: 'jbister', requester: dbl)
+    dbl = HttpClientGetDouble.new(@requests)
+    fines = FinesPage.new(uniqname: 'jbister', client: dbl)
     expect(fines.list).to eq(@expected_output) 
   end
   it "handles empty request" do
     @requests[@requests.keys[0]]['total_record_count'] = 0
-    dbl = RequesterDouble.new(@requests)
-    fines = FinesPage.new(uniqname: 'jbister', requester: dbl)
+    dbl = HttpClientGetDouble.new(@requests)
+    fines = FinesPage.new(uniqname: 'jbister', client: dbl)
     expect(fines.list).to eq([]) 
   end
 end

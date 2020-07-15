@@ -1,20 +1,20 @@
-require './app/models/requester'
+require './app/models/http_client'
 require 'date'
 
 class Fines
   attr_reader :uniqname
-  def initialize(uniqname:, requester: Requester.new)
+  def initialize(uniqname:, client: HttpClient.new)
     @uniqname = uniqname
-    @requester = requester
+    @client = client
   end
   def url
     "/users/#{@uniqname}/fees"
   end
   def list
-    fines = @requester.request(url)
+    fines = @client.get(url)
     return [] if fines['total_record_count'] == 0
     fines['fee'].map do |fine|
-      item = @requester.request("/items?item_barcode=#{fine['barcode']['value']}")
+      item = @client.get("/items?item_barcode=#{fine['barcode']['value']}")
       element(main: fine, bib: item)
     end
   end

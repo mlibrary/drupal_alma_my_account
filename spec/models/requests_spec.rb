@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'json'
 require './app/models/requests'
-require './spec/doubles/requester_double'
+require './spec/doubles/http_client_get_double'
 
 describe Requests, 'initialize' do
   it "initializes with uniqname" do
@@ -39,21 +39,21 @@ describe Requests, 'list' do
     }
   end
   it "returns correct number of items list of loans" do
-    dbl = RequesterDouble.new(@requests)
-    requests = Requests.new(uniqname: 'connie', requester: dbl)
+    dbl = HttpClientGetDouble.new(@requests)
+    requests = Requests.new(uniqname: 'connie', client: dbl)
     expect(requests.list.count).to eq(2) 
     expect(requests.list['B'].count).to eq(0) 
     expect(requests.list['H'].count).to eq(1) 
   end
   it "reutrns correct items" do
-    dbl = RequesterDouble.new(@requests)
-    requests = Requests.new(uniqname: 'connie', requester: dbl)
+    dbl = HttpClientGetDouble.new(@requests)
+    requests = Requests.new(uniqname: 'connie', client: dbl)
     expect(requests.list).to eq(@expected_output) 
   end
   it "handles empty request" do
     @requests[@requests.keys[0]]['total_record_count'] = 0
-    dbl = RequesterDouble.new(@requests)
-    requests = Requests.new(uniqname: 'connie', requester: dbl)
+    dbl = HttpClientGetDouble.new(@requests)
+    requests = Requests.new(uniqname: 'connie', client: dbl)
     expect(requests.list).to eq({'B' => [],'H' => []})
   end
 end

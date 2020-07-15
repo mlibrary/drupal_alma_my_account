@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'json'
 require './app/models/patron'
-require './spec/doubles/requester_double'
+require './spec/doubles/http_client_get_double'
 
 describe Patron, 'initialize' do
   it "initializes with uniqname" do
@@ -32,27 +32,27 @@ describe Patron, 'list' do
          'phone' => '18005882300',
          'expires' => '20300116',
       }
-   dbl = RequesterDouble.new(@requests)
-   patron = Patron.new(uniqname: 'johns', requester: dbl)
+   dbl = HttpClientGetDouble.new(@requests)
+   patron = Patron.new(uniqname: 'johns', client: dbl)
    expect(patron.list).to eq(expected_patron)
   end
   it 'handles empty phone block' do
     @requests.values[0]['contact_info']['phone'] = []
-   dbl = RequesterDouble.new(@requests)
-   patron = Patron.new(uniqname: 'johns', requester: dbl)
+   dbl = HttpClientGetDouble.new(@requests)
+   patron = Patron.new(uniqname: 'johns', client: dbl)
    expect(patron.list['phone']).to eq('')
   end
   it 'handles empty email block' do
     @requests.values[0]['contact_info']['email'] = []
-   dbl = RequesterDouble.new(@requests)
-   patron = Patron.new(uniqname: 'johns', requester: dbl)
+   dbl = HttpClientGetDouble.new(@requests)
+   patron = Patron.new(uniqname: 'johns', client: dbl)
    expect(patron.list['email']).to eq('')
   end
 
   it 'handles missing expiry_date' do
    @requests.values[0].delete('expiry_date')
-   dbl = RequesterDouble.new(@requests)
-   patron = Patron.new(uniqname: 'johns', requester: dbl)
+   dbl = HttpClientGetDouble.new(@requests)
+   patron = Patron.new(uniqname: 'johns', client: dbl)
    expect(patron.list['expires']).to eq('')
   end 
 end

@@ -1,9 +1,9 @@
 require 'byebug'
-class RequesterDouble
+class HttpClientPostDouble
   def initialize(requests={})
     @requests = requests
   end
-  def request(url)
+  def post(url)
     @requests[url]
   end
 end

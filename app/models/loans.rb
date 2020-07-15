@@ -1,18 +1,18 @@
-require './app/models/requester'
+require './app/models/http_client'
 require 'date'
 
 class Loans
   attr_reader :uniqname
-  def initialize(uniqname:, requester: Requester.new)
+  def initialize(uniqname:, client: HttpClient.new)
     @uniqname = uniqname
-    @requester = requester
+    @client = client
   end
   def list
-    loans = @requester.request("/users/#{@uniqname}/loans")
+    loans = @client.get("/users/#{@uniqname}/loans")
     return [] if loans['total_record_count'] == 0
     loans['item_loan'].map.with_index do |loan, index|
       item_url = "/bibs/#{loan['mms_id']}/holdings/#{loan['holding_id']}/items/#{loan['item_id']}"
-      item = @requester.request(item_url)
+      item = @client.get(item_url)
       { 
         'duedate' => format_date(loan['due_date']),
         'isbn'    => item['bib_data']['isbn'], #get from item record
