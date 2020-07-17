@@ -36,7 +36,7 @@ describe Loans, 'list' do
           "num"=>0
         }, {
           "duedate"=>"20180728 2200", 
-          "isbn"=>nil, 
+          "isbn"=>9781234567897, 
           "status"=>"", 
           "author"=>"Shakespeare, William,", 
           "title"=>"Plain words on singing / by William Shakespeare ..", 

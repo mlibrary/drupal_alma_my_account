@@ -13,15 +13,16 @@ describe Requests, 'list' do
   before(:each) do 
     @requests = {
       '/users/connie/requests' => JSON.parse(File.read('./spec/fixtures/connie_holds.json')),
+      '/users/jbister/requests' => JSON.parse(File.read('./spec/fixtures/jbister_requests.json')),
     }
-    @expected_output = {
+    @expected_hold_output = {
       'B' => [],  
       'H' => [ 
         {
           'title' => 'From Grieg to Brahms.',
           'author' => 'Mason, Daniel Gregory, 1873-1953.',
           'isbn' => '', #find_other_way?
-          'type' => 'H-01', #???? [z37-request-type]-[z37-recall-type]
+          'type' => 'H-03', #???? [z37-request-type]-[z37-recall-type] 03 --> no recall
           'status' => 'NOT_STARTED', #z37-status
           'id' => '99948430000541', #mms ['z13-doc-number']
           'hold_rec_key' => '1332745510000521', #[z37-doc-number].[z37-item-sequence].[z37-sequence] using request_id
@@ -37,8 +38,50 @@ describe Requests, 'list' do
         }
       ]
     }
+    @expected_booking_output = {
+      'B' => [
+        {
+          'title' => 'Plain words on singing / by William Shakespeare ..',
+          'author' => 'Shakespeare, William, 1849-1931.',
+          'isbn' => '', #find_other_way?
+          'type' => 'B-03', #???? [z37-request-type]-[z37-recall-type] #03 -> no recall
+          'status' => 'NOT_STARTED', #z37-status
+          'id' => '991408490000541', #mms ['z13-doc-number']
+          'hold_rec_key' =>'1372347900006381', #[z37-doc-number].[z37-item-sequence].[z37-sequence] using request_id
+          'barcode' => nil,
+          'pickup_loc' => 'Main Library',
+          'location' => '', #z30-sub-library??? #managed by library
+          'call_number' => '', #z30-call-no
+          'description' => '', #z30-description
+          'expires' => '', #z37-end-request-date // last_interst_date??
+          'created' => '07/16/2020', #z37-open-date
+          'booking_start' => '07/17/2020 05:46 PM',
+          'booking_end' => '07/21/2020 03:59 AM',
+        }
+      ],
+      'H' => [
+        {
+          'title' => 'The social life of language / Gillian Sankoff.',
+          'author' => 'Sankoff, Gillian.',
+          'isbn' => '', #find_other_way?
+          'type' => 'H-03', #???? [z37-request-type]-[z37-recall-type] 03 -> no recall
+          'status' => 'IN_PROCESS', #z37-status
+          'id' => '991040390000541', #mms ['z13-doc-number']
+          'hold_rec_key' => '1372348190006381', #[z37-doc-number].[z37-item-sequence].[z37-sequence] using request_id
+          'barcode' => nil,
+          'pickup_loc' => 'Music Library',
+          'location' => 'Main Library', #z30-sub-library??? using managed_by_library
+          'call_number' => '', #z30-call-no
+          'description' => '', #z30-description
+          'expires' => '07/22/2020', #z37-end-request-date // last_interst_date??
+          'created' => '07/16/2020', #z37-open-date
+          'booking_start' => '',
+          'booking_end' => '',
+        }
+      ]
+    }
   end
-  it "returns correct number of items list of loans" do
+  it "returns correct number of items list of holds" do
     dbl = HttpClientGetDouble.new(@requests)
     requests = Requests.new(uniqname: 'connie', client: dbl)
     expect(requests.list.count).to eq(2) 
@@ -48,12 +91,17 @@ describe Requests, 'list' do
   it "reutrns correct items" do
     dbl = HttpClientGetDouble.new(@requests)
     requests = Requests.new(uniqname: 'connie', client: dbl)
-    expect(requests.list).to eq(@expected_output) 
+    expect(requests.list).to eq(@expected_hold_output) 
   end
   it "handles empty request" do
     @requests[@requests.keys[0]]['total_record_count'] = 0
     dbl = HttpClientGetDouble.new(@requests)
     requests = Requests.new(uniqname: 'connie', client: dbl)
     expect(requests.list).to eq({'B' => [],'H' => []})
+  end
+  it "handles bookings" do
+    dbl = HttpClientGetDouble.new(@requests)
+    requests = Requests.new(uniqname: 'jbister', client: dbl)
+    expect(requests.list).to eq(@expected_booking_output) 
   end
 end

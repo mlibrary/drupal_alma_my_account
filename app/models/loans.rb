@@ -14,18 +14,18 @@ class Loans
       item_url = "/bibs/#{loan['mms_id']}/holdings/#{loan['holding_id']}/items/#{loan['item_id']}"
       item = @client.get(item_url)
       { 
-        'duedate' => format_date(loan['due_date']),
+        'duedate' => format_date(loan['due_date']), #z36-due-date z36-due-hour
         'isbn'    => item['bib_data']['isbn'], #get from item record
-        'status'      => '', #not sure how this works; see notes
-        'author'  => loan['author'],
-        'title'   => loan['title'],
-        'barcode'   => loan['item_barcode'],
-        'call_number' => loan['call_number'], 
-        'description' => loan['description'], 
-        'id'          => loan['mms_id'], 
-        'bib_library' => '',  #don't know how this will work in Alma (MIU01/MIU30)
-        'location'    => loan['library']['desc'], 
-        'format'      => [item['item_data']['physical_material_type']['desc']], #get from item record
+        'status'      => '', #can be overdue (calculated by looking at duedate) and recalled. #z36-recall-due-date
+        'author'  => loan['author'], #z13-author
+        'title'   => loan['title'], #z13-title
+        'barcode'   => loan['item_barcode'],  #z30-barcode
+        'call_number' => loan['call_number'], #z30-call-no
+        'description' => loan['description'],  #z30-descriptions
+        'id'          => loan['mms_id'], #z13-doc-number
+        'bib_library' => '',  #z13-user-defined-5 || z13-user-defined-3
+        'location'    => loan['library']['desc'], #z30-sub-library
+        'format'      => [item['item_data']['physical_material_type']['desc']], #z30-material
         'num'         => index, 
       }
     end

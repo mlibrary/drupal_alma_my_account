@@ -11,20 +11,20 @@ class Patron
     patron = @client.get("/users/#{@uniqname}?user_id_type=all_unique&view=full&expand=none")
     contact_info = ContactInfo.new(patron['contact_info'])
    { 
-         'uniqname' => patron['primary_id'],
-         'first_name' => patron['first_name'],
-         'last_name' => patron['last_name'],
-         'email' => contact_info.email,
-         'college' => nil, #Don't know
-         'bor_status' => nil, #Don't know
-         'booking_permission' => nil, #Don't know
-         'campus' => patron['campus_code']['value'],
-         'barcode' => nil, #Don't know
-         'address_1' => contact_info.address_1,
-         'address_2' => contact_info.address_2,
-         'zip' => contact_info.zip,
-         'phone' => contact_info.phone,
-         'expires' => format_date(patron['expiry_date']),
+         'uniqname' => patron['primary_id'], 
+         'first_name' => patron['first_name'], #z303-name
+         'last_name' => patron['last_name'], #z303-name
+         'email' => contact_info.email, #z304-email
+         'college' => nil, #Don't know #z303-home-library (and some other stuff?)
+         'bor_status' => nil, #Don't know #z305-bor-status
+         'booking_permission' => nil, #z305-booking-permission
+         'campus' => patron['campus_code']['value'], #z303-profile-id
+         'barcode' => nil, #z303-id (aleph id for user)
+         'address_1' => contact_info.address_1, #z304-address-1
+         'address_2' => contact_info.address_2, #z304-address-2
+         'zip' => contact_info.zip, #z304-zip
+         'phone' => contact_info.phone, #z304-telephone
+         'expires' => format_date(patron['expiry_date']), #z305-expiry-date
     }
   end
 

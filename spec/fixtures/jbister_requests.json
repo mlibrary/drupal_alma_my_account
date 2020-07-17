@@ -1,0 +1,78 @@
+{
+  "user_request": [
+    {
+      "user_primary_id": "jbister",
+      "request_id": "1372348190006381",
+      "request_type": "HOLD",
+      "request_sub_type": {
+        "value": "PATRON_PHYSICAL",
+        "desc": "Patron physical item request"
+      },
+      "mms_id": "991040390000541",
+      "title": "The social life of language / Gillian Sankoff.",
+      "author": "Sankoff, Gillian.",
+      "description": null,
+      "pickup_location": "Music Library",
+      "pickup_location_type": "LIBRARY",
+      "pickup_location_library": "MUS",
+      "managed_by_library": "Main Library",
+      "managed_by_circulation_desk": "Main Library Circulation",
+      "managed_by_library_code": "MAIN",
+      "managed_by_circulation_desk_code": "DEFAULT_CIRC_DESK",
+      "material_type": {
+        "value": "BOOK",
+        "desc": "Book"
+      },
+      "last_interest_date": "2020-07-22Z",
+      "volume": "",
+      "issue": "",
+      "part": "",
+      "date_of_publication": "",
+      "comment": null,
+      "request_status": "IN_PROCESS",
+      "request_date": "2020-07-16Z",
+      "request_time": "2020-07-16T18:40:20.416Z",
+      "task_name": "Pickup From Shelf",
+      "expiry_date": "2020-07-22Z",
+      "barcode": null
+    },
+    {
+      "user_primary_id": "jbister",
+      "request_id": "1372347900006381",
+      "request_type": "BOOKING",
+      "request_sub_type": {
+        "value": "BOOKING",
+        "desc": "Booking request"
+      },
+      "mms_id": "991408490000541",
+      "title": "Plain words on singing / by William Shakespeare ..",
+      "author": "Shakespeare, William, 1849-1931.",
+      "description": null,
+      "pickup_location": "Main Library",
+      "pickup_location_type": "LIBRARY",
+      "pickup_location_library": "MAIN",
+      "managed_by_library": "",
+      "managed_by_circulation_desk": "",
+      "managed_by_library_code": "",
+      "managed_by_circulation_desk_code": "",
+      "material_type": {
+        "value": "BOOK",
+        "desc": "Book"
+      },
+      "volume": "",
+      "issue": "",
+      "part": "",
+      "date_of_publication": "",
+      "comment": null,
+      "request_status": "NOT_STARTED",
+      "request_date": "2020-07-16Z",
+      "request_time": "2020-07-16T17:45:26.136Z",
+      "booking_start_date": "2020-07-17T17:46:00.414Z",
+      "booking_end_date": "2020-07-21T03:59:00.414Z",
+      "adjusted_booking_start_date": "2020-07-17T17:46:00.414Z",
+      "adjusted_booking_end_date": "2020-07-21T03:59:00Z",
+      "barcode": null
+    }
+  ],
+  "total_record_count": 2
+}
