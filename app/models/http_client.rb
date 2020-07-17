@@ -12,7 +12,7 @@ class HttpClient
     when 200
       JSON.parse(response.body)
     when 302
-      Requester.new.request(response.headers['Location'])
+      HttpClient.new.get(response.headers['Location'])
     end
   end
 
@@ -23,7 +23,7 @@ class HttpClient
 
   def delete(url)
     response = Excon.delete( full_url(url), headers: @headers )
-    JSON.parse(response.body)
+    response.data.to_json
   end
   private
   def full_url(url)

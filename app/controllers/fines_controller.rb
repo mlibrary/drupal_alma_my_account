@@ -1,7 +1,10 @@
 class FinesController < ApplicationController
+  def email
+    fines = FinesEmail.new(uniqname: params[:id])
+    render json: fines.list
+  end
   def index
-    url ="users/#{params[:id]}/fines"
-    fines = Fines.new(uniqname: params[:id])
+    fines = FinesPage.new(uniqname: params[:id])
     render json: fines.list
   end
 end

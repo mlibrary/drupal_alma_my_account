@@ -10,6 +10,7 @@ class Loans
   def list
     loans = get
     return [] if loans['total_record_count'] == 0
+    
     loans['item_loan'].map.with_index do |loan, index|
       item_url = "/bibs/#{loan['mms_id']}/holdings/#{loan['holding_id']}/items/#{loan['item_id']}"
       item = @client.get(item_url)
