@@ -18,19 +18,19 @@ describe Patron, 'list' do
   it "gets correct patron info" do
     expected_patron =  {
          'uniqname' => 'johns',
-         'first_name' => 'John',
-         'last_name' => 'Smith',
-         'email' => 'johns@mylib.org',
-         'college' => nil, #Don't know
-         'bor_status' => nil, #Don't know
-         'booking_permission' => nil, #Don't know
-         'campus' => 'Main', 
-         'barcode' => nil, #Don't know
-         'address_1' => 'Graduate Library',
-         'address_2' => '3598 N. Buckingham Road',
-         'zip' => '85054',
-         'phone' => '18005882300',
-         'expires' => '20300116',
+         'first_name' => 'John', #z303-name
+         'last_name' => 'Smith', #z303-name
+         'email' => 'johns@mylib.org', #z304-email
+         'college' => nil, #z303-home-library (and other things)
+         'bor_status' => nil, #z305-bor-status
+         'booking_permission' => nil, #z305-booking-permission
+         'campus' => 'Main',  #z303-profile-id
+         'barcode' => nil, #z303-id
+         'address_1' => 'Graduate Library', #z304-address-1
+         'address_2' => '3598 N. Buckingham Road', #z304-address-2
+         'zip' => '85054', #z304-zip
+         'phone' => '18005882300', #z304-telephone
+         'expires' => '20300116', #z305-expiry-date
       }
    dbl = HttpClientGetDouble.new(@requests)
    patron = Patron.new(uniqname: 'johns', client: dbl)

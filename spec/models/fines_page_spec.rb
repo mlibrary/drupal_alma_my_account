@@ -19,7 +19,7 @@ describe FinesPage, 'list' do before(:each) do
           'barcode' => '93727', #z30-barcode
           'date'=> '20151110', #creation_time #z31-date #CHECK don't think this gets used
           'fine'=> 22.23,  #z31-sum (without the parens)
-          'fine_description' => 'Overdue fine',  #z31-fine-description
+          'fine_description' => 'Overdue fine',  #z31-description
           'href' => 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/users/jbister/fees/121319140000521', #??????? getAttribute('href')
           'id'=> '991040390000541',  #mms_id z30-doc-number
           'library' => 'Main Library', #owner?? #z31-payment-target

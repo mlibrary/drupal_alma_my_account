@@ -21,18 +21,18 @@ describe Loans, 'list' do
     @expected_output = 
       [
         {
-          "duedate"=>"20180728 2200", 
-          "isbn"=>"0028723406", 
+          "duedate"=>"20180728 2200", #z36-due-date z36-due-hour
+          "isbn"=>"0028723406",  #z13-isbn
           "status"=>"", 
-          "author"=>"Schmidt, Jan,", 
-          "title"=>"Basics of singing / [compiled by] Jan Schmidt.", 
-          "barcode"=>"67576", 
-          "call_number"=>"MT825 .B27 1984", 
-          "description"=>nil, 
-          "id"=>"991246960000541", 
-          "bib_library"=>"", 
-          "location"=>"Music Library", 
-          "format"=>['Music Score'], 
+          "author"=>"Schmidt, Jan,", #z13-author
+          "title"=>"Basics of singing / [compiled by] Jan Schmidt.", #z13-title
+          "barcode"=>"67576", #z30-barcode
+          "call_number"=>"MT825 .B27 1984", #z30-call-no
+          "description"=>nil, #z30-description
+          "id"=>"991246960000541", #z13-doc-number
+          "bib_library"=>"", #z13-user-defined-5 || z13-user-defined-3
+          "location"=>"Music Library",  #z30-sub-library
+          "format"=>['Music Score'], #z30-material
           "num"=>0
         }, {
           "duedate"=>"20180728 2200", 

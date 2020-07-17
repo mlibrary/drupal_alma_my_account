@@ -20,21 +20,21 @@ describe FinesEmail, 'list' do before(:each) do
     }
     @expected_output = 
         {
-          'title'=> 'The social life of language / Gillian Sankoff.', 
-          'id'=> '991040390000541',  #mms_id
-          'status'=> 'Active', 
+          'title'=> 'The social life of language / Gillian Sankoff.', #z13-title 
+          'id'=> '991040390000541',  #mms_id #z13-doc-id
+          'status'=> 'Active', #z31-status
           'date'=> '20151110', #creation_time #z31-date
-          'fine'=> 22.23, 
-          'fine_description' => 'Overdue fine',
+          'fine'=> 22.23, #z31-net-sum
+          'fine_description' => 'Overdue fine', #z31-description
           'description' => '', #z30-description: Description of the item (for multi-volume monographs or serial items); Probably should be handled with enumeration chronology?
-          'barcode' => '93727',
+          'barcode' => '93727', #z30-barcode
           'location' => 'Main Library', #z30-sub-library
           'call_number' => 'P35 .S2', #z30-call-number
           'library' => 'Main Library', #owner?? #z31-payment-target
           'sub_library' => 'Main Library', #owner?? #z31-sub-library
           'type' => 'OVERDUEFINE', #type_code #z31-type
           'target' => 'Main Library', #owner?? #z31-payment-target or 
-          'payment_cataloger' => '',
+          'payment_cataloger' => '', #z31-payment-cataloger
         }
   end
   it "returns correct number of items list of fines" do
