@@ -6,7 +6,7 @@
 
     public function __construct($uniqname, $client = NULL ){
       $this->uniqname = $uniqname;
-      $this->client = (is_null($client)) ? new MyClient : $client;
+      $this->client = (is_null($client)) ? new Client : $client;
     } 
 
     public function Login(){
