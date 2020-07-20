@@ -9,4 +9,6 @@
 
   $p = new Patron('heidi.bruss');
   print_r($p->Transactions());
+  print_r($p->CancelHold('1372360500006381'));
+ // print_r($p->payPatronFines('10','blahblah'));
 ?>

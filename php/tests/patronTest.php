@@ -89,38 +89,5 @@ class patronTest extends TestCase
             $p->Transactions()
         );
     }
-     /**
-     * @covers            \Patron::Login
-     */
-    public function testReturnsCorrectOutput(): void
-    {
-        $dbl = new ClientDouble([
-          'get' => [ 
-            '/users/heidibruss' => file_get_contents("tests/fixtures/heidi_user.json") 
-           ]
-         ]);
-        $output = [
-          "uniqname" => "heidibruss",
-          "first_name" => "Heidi",
-          "last_name" => "Bruss",
-          "email" => "heidi@alma.net",
-          "college" => null,
-          "bor_status" => null,
-          "booking_permission" => null,
-          "campus" => null,
-          "barcode" => null,
-          "address_1" => "1350 E. Touhy Ave.",
-          "address_2" => "#200E",
-          "zip" => "",
-          "phone" => "847-227-2200",
-          "expires" => ""
-        ];
-        $p = new Patron('heidibruss', $dbl);
-        $this->assertEquals(
-            $output,
-            $p->Login()
-        );
-    }
-    
 }
 ?>

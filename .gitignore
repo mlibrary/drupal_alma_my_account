@@ -7,31 +7,34 @@
 # Ignore environment variables
 .env
 # Ignore scripts to help me out
-lib/scripts
+rails/lib/scripts
 
 # Ignore bundler config.
-/.bundle
+rails/.bundle
 
 # Ignore the default SQLite database.
-/db/*.sqlite3
-/db/*.sqlite3-journal
-/db/*.sqlite3-*
+rails/db/*.sqlite3
+rails/db/*.sqlite3-journal
+rails/db/*.sqlite3-*
 
 # Ignore all logfiles and tempfiles.
-/log/*
-/tmp/*
-!/log/.keep
-!/tmp/.keep
+rails/log/*
+rails/tmp/*
+!rails/log/.keep
+!rails/tmp/.keep
 
 # Ignore pidfiles, but keep the directory.
-/tmp/pids/*
-!/tmp/pids/
-!/tmp/pids/.keep
+rails/tmp/pids/*
+!rails/tmp/pids/
+!rails/tmp/pids/.keep
 
 # Ignore uploaded files in development.
-/storage/*
-!/storage/.keep
+rails/storage/*
+!rails/storage/.keep
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.
-/config/master.key
+rails/config/master.key
+
+php/vendor
+php/var
