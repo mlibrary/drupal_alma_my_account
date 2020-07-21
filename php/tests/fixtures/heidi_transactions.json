@@ -1,0 +1,36 @@
+[
+  {
+    "duedate": "20200920 0359",
+    "isbn": "0199795134",
+    "status": "",
+    "author": "Fountain, Charles.",
+    "title": "The betrayal : the 1919 World Series and the birth of modern baseball / Charles Fountain.",
+    "barcode": "A1272204",
+    "call_number": "GV875.C58 F68 2015",
+    "description": null,
+    "id": "9930337800521",
+    "bib_library": "",
+    "location": "Main Library",
+    "format": [
+      "Book"
+    ],
+    "num": 0
+  },
+  {
+    "duedate": "20191005 0000",
+    "isbn": "1423603877 (pbk.)",
+    "status": "",
+    "author": "Taylor, Nancy H.",
+    "title": "Go green : how to build an earth-friendly community / Nancy H. Taylor.",
+    "barcode": "15009452",
+    "call_number": "GE195 .T39 2008",
+    "description": null,
+    "id": "991301860000541",
+    "bib_library": "",
+    "location": "Science Library",
+    "format": [
+      "Book"
+    ],
+    "num": 1
+  }
+]

@@ -3,9 +3,9 @@ Rails.application.routes.draw do
   scope 'users/:id/' do
     constraints id: /[A-Za-z0-9\.]+/ do
       get '/', to: 'users#index'
-      get 'transactions', to: 'transactions#index'
       get 'fines/email', to: 'fines#email'
       get 'fines', to: 'fines#index'
+      put 'fines', to: 'fines#pay'
       get 'requests', to: 'requests#index'
       get 'loans', to: 'loans#index'
       delete 'requests/:request_id', to: 'requests#delete' 
