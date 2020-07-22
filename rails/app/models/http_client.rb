@@ -16,6 +16,10 @@ class HttpClient
     end
   end
 
+  def put(url)
+    response = Excon.put( full_url(url), headers: @headers )
+    JSON.parse(response.body)
+  end
   def post(url)
     response = Excon.post( full_url(url), headers: @headers )
     JSON.parse(response.body)

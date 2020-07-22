@@ -3,19 +3,19 @@ require 'date'
 
 class Requests
   attr_reader :uniqname
-  def initialize(uniqname:, client: HttpClient.new)
+  def initialize(uniqname:, client: HttpClientFull.new)
     @uniqname = uniqname
     @client = client
   end
   def get
-    @client.get("/users/#{@uniqname}/requests")
+    @client.get_all(url: "/users/#{@uniqname}/requests", record_name: 'user_request')
   end
   def list
     requests = get
     output = {'B' => [], 'H' => [] }
     return output if requests['total_record_count'] == 0
 
-    requests['user_request'].map.with_index do |request, index|
+    requests['user_request'].map do |request|
       request_inst = Request.for(request)
       
       case request_inst.class.name

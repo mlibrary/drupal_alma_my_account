@@ -1,9 +1,9 @@
 class Fines
   attr_reader :uniqname
-  def initialize(uniqname:, client: HttpClient.new)
+  def initialize(uniqname:, client: HttpClientFull.new)
     @uniqname = uniqname
     @client = client
-    @raw = @client.get(url)
+    @raw = @client.get_all(url:url, record_name: 'fee')
     @fines = get_fines
   end
   def url
