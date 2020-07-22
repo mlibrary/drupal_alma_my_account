@@ -75,4 +75,18 @@ describe FinesPage, 'list' do before(:each) do
     fines = FinesPage.new(uniqname: 'jbister', client: dbl)
     expect(fines.list).to eq([]) 
   end
+  it "handles credit" do
+    dbl = HttpClientGetDouble.new({
+      '/users/jbister/fees' => JSON.parse(File.read('./spec/fixtures/jbister_credit.json')),
+    })
+    expected_credit =     
+    { 
+      'amount' => -72.5, 
+      'count' => 0,
+      'charges' =>[],
+      'payments' =>[]
+    }
+    fines = FinesPage.new(uniqname: 'jbister', client: dbl)
+    expect(fines.list).to eq(expected_credit) 
+  end
 end

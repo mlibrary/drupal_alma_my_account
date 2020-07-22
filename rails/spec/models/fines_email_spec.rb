@@ -49,7 +49,15 @@ describe FinesEmail, 'list' do before(:each) do
   end
   it "handles empty request" do
     @requests[@requests.keys[0]]['total_record_count'] = 0
+    @requests[@requests.keys[0]].delete('fee')
     dbl = HttpClientGetDouble.new(@requests)
+    fines = FinesEmail.new(uniqname: 'jbister', client: dbl)
+    expect(fines.list).to eq([]) 
+  end
+  it "handles credit" do
+    dbl = HttpClientGetDouble.new({
+      '/users/jbister/fees' => JSON.parse(File.read('./spec/fixtures/jbister_credit.json')),
+    })
     fines = FinesEmail.new(uniqname: 'jbister', client: dbl)
     expect(fines.list).to eq([]) 
   end

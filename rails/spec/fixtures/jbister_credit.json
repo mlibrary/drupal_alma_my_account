@@ -1,0 +1,36 @@
+{
+  "fee": [
+    {
+      "id": "1372359730006381",
+      "type": {
+        "value": "CREDIT",
+        "desc": "Credit"
+      },
+      "status": {
+        "value": "ACTIVE",
+        "desc": "Active"
+      },
+      "user_primary_id": {
+        "value": "jbister",
+        "link": "https://api-na.hosted.exlibrisgroup.com/almaws/v1/users/jbister"
+      },
+      "balance": -72.5,
+      "remaining_vat_amount": 0,
+      "original_amount": -72.5,
+      "original_vat_amount": 0,
+      "creation_time": "2020-07-20T17:45:25.497Z",
+      "status_time": "2020-07-20T17:45:25.497Z",
+      "comment": null,
+      "owner": {
+        "value": "MUS",
+        "desc": "Music Library"
+      },
+      "title": null,
+      "barcode": null,
+      "link": "https://api-na.hosted.exlibrisgroup.com/almaws/v1/users/jbister/fees/1372359730006381"
+    }
+  ],
+  "total_record_count": 1,
+  "total_sum": -72.5,
+  "currency": "USD"
+}

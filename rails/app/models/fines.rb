@@ -15,7 +15,7 @@ class Fines
   def get_fines
     return nil if @raw['total_record_count'] == 0
     @raw['fee'].map do |fine|
-      bib = @client.get("/items?item_barcode=#{fine['barcode']['value']}")
+      bib = @client.get("/items?item_barcode=#{fine['barcode']['value']}") if fine['barcode']
       { main: fine, bib: bib }
     end
   end
