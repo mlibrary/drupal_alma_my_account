@@ -8,14 +8,16 @@ class FinesPage < Fines
     charges = []
     payments = []
     @fines.each do |fine|
-      charges.push(Charge.new(fine).to_h)
-      fine[:main]['transaction']&.each do |transaction|
-        payments.push({'transaction' => transaction['external_transaction_id'] })
+      unless fine[:main]['type']['value'] == "CREDIT"
+        charges.push(Charge.new(fine).to_h)
+        fine[:main]['transaction']&.each do |transaction|
+          payments.push({'transaction' => transaction['external_transaction_id'] })
+        end
       end
     end
     
     {
-      'count' => @raw['total_record_count'],
+      'count' => charges.count,
       'amount' => @raw['total_sum'],
       'charges' => charges,
       'payments' => payments

@@ -3,7 +3,7 @@ require 'date'
 
 class Loans
   attr_reader :uniqname
-  def initialize(uniqname:, client: HttpClient.new)
+  def initialize(uniqname:, client: HttpClientFull.new)
     @uniqname = uniqname
     @client = client
   end
@@ -33,7 +33,7 @@ class Loans
   end
 
   def get
-    @client.get("/users/#{@uniqname}/loans")
+    @client.get_all(url:"/users/#{@uniqname}/loans",record_name: 'item_loan')
   end
 
   private
