@@ -4,6 +4,7 @@ class LoansController < ApplicationController
     render json: loans.list
   end
   def renew
-    LoanRenewer.new().renew(uniqname: params[:id], barcode: params[:barcode])
+    response = LoanRenewer.new().renew(uniqname: params[:id], barcode: params[:barcode])
+    render json: response
   end
 end

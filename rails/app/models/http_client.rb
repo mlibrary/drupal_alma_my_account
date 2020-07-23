@@ -21,8 +21,7 @@ class HttpClient
     JSON.parse(response.body)
   end
   def post(url)
-    response = Excon.post( full_url(url), headers: @headers )
-    JSON.parse(response.body)
+    Excon.post( full_url(url), headers: @headers )
   end
 
   def delete(url)

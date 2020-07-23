@@ -1,0 +1,39 @@
+{
+  "loan_id": "1372379720006381",
+  "circ_desk": {
+    "value": "DEFAULT_CIRC_DESK",
+    "desc": "Main Library Circulation"
+  },
+  "library": {
+    "value": "MAIN",
+    "desc": "Main Library"
+  },
+  "user_id": "jbister",
+  "item_barcode": "29204",
+  "due_date": "2020-10-24T03:59:00Z",
+  "loan_status": "ACTIVE",
+  "loan_date": "2020-07-23T12:21:48.018Z",
+  "process_status": "RENEW",
+  "mms_id": "99903190000541",
+  "holding_id": "223990410000541",
+  "item_id": "233990400000541",
+  "title": "Green mansions = The purple land / W. H. Hudson ; illustrated by Keith Henderson.",
+  "author": "Hudson, W. H.",
+  "description": null,
+  "publication_year": "[19--]",
+  "location_code": {
+    "value": "main",
+    "name": "Stacks"
+  },
+  "item_policy": {
+    "value": null,
+    "description": null
+  },
+  "call_number": "PR6015.U23 A15",
+  "renewable": true,
+  "last_renew_date": "2020-07-23T13:22:02.765Z",
+  "last_renew_status": {
+    "value": "401193;",
+    "desc": "Renewed Successfully"
+  }
+}

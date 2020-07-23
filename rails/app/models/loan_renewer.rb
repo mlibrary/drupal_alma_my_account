@@ -11,6 +11,16 @@ class LoanRenewer
     loans = loans_class.new(uniqname: uniqname).get
     loan = loans['item_loan'].find{ |x| x['item_barcode'].to_s == barcode.to_s}
     url = "/users/#{uniqname}/loans/#{loan['loan_id']}?op=renew"
-    @client.post(url)
+    response =  @client.post(url)
+    if response.status == 503
+        "Not Renewed: Unable to renew item -- no response from server"
+    else
+      body = JSON.parse(response.body)
+      if body["errorsExist"]
+        "Not Renewed: #{body['errorList']['error'].first['errorMessage']}"
+      else
+        "Renewed: item renewed"
+      end 
+    end 
   end
 end
