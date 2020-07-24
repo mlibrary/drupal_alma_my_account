@@ -1,6 +1,18 @@
 <?php
-  require_once('./src/client.php');
-  class Patron {
+  require_once('my_account/patron/clientDemo.php');
+  class Fines {
+    public $count = NULL;
+    public $amount = NULL;
+    public $charges = NULL;
+    public $payments = NULL;
+    public function __construct($fines){
+      $this->count = $fines['count'];
+      $this->amount = $fines['amount'];
+      $this->charges = $fines['charges'];
+      $this->payments = $fines['payments'];
+    }
+  }
+  class MyPatron {
     public $uniqname = NULL;
     public $client = NULL;
 
@@ -14,7 +26,8 @@
 
     public function getPatronFines(){
       $url = "/users/{$this->uniqname}/fines";
-      return $this->get($url);
+      $fines = $this->get($url);
+      return new Fines($fines);
     }
 
     public function payPatronFines($amount, $reference){
@@ -23,11 +36,12 @@
     }
 
     //public function setSMS($sms_number){
-    //}
+    //iiiiii}
 
     //public function getSMS(){
     //}
-  
+
+   //hard. do last 
     public function Login(){
       $url = "/users/{$this->uniqname}";
       return $this->get($url);
@@ -54,7 +68,7 @@
     }
 
     public function CancelHold($request_id){
-      $url = "/users/{$this->uniqname}/requests/{$request_id}";
+      $url = "/users/{$this->uniqname}/requests/{$request_id}?reason=patrons_request";
       return $this->del($url);
     }
     
