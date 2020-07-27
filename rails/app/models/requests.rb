@@ -8,24 +8,30 @@ class Requests
     @uniqname = uniqname
     @client = client
   end
+  def url
+    "/users/#{@uniqname}/requests"
+  end
+  def record_name
+    "user_request"
+  end
   def get
-    @client.get_all(url: "/users/#{@uniqname}/requests", record_name: 'user_request')
+    @client.get_all(url: url, record_name: record_name)
   end
   def list
     response = get
     if response.status == 200
-      requests = JSON.parse(response.body)
+      things = JSON.parse(response.body)
       output = {'B' => [], 'H' => [] }
-      return Response.new(body: output) if requests['total_record_count'] == 0
+      return Response.new(body: output) if things['total_record_count'] == 0
 
-      requests['user_request'].map do |request|
-        request_inst = Request.for(request)
+      things[record_name].each.with_index do |thing, index|
+        thing_inst = Request.for(thing)
         
-        case request_inst.class.name
+        case thing_inst.class.name
         when 'HoldRequest'
-          output['H'].push(request_inst.to_h) 
+          output['H'].push(thing_inst.to_h) 
         when 'BookingRequest'
-          output['B'].push(request_inst.to_h) 
+          output['B'].push(thing_inst.to_h) 
         end
       end
       Response.new(body: output)
