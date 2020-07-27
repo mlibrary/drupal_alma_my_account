@@ -1,0 +1,13 @@
+{
+  "errorsExist": true,
+  "errorList": {
+    "error": [
+      {
+        "errorCode": "401861",
+        "errorMessage": "User with identifier blah was not found.",
+        "trackingId": "E01-2707175718-2CM86-AWAE181248195"
+      }
+    ]
+  },
+  "result": null
+}

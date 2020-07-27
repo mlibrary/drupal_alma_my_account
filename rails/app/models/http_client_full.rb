@@ -1,4 +1,7 @@
+require './app/models/http_client'
+require './app/models/response'
 require 'forwardable'
+
 class HttpClientFull
   extend Forwardable
   def_delegators :@client, :get, :post, :put, :del
@@ -12,12 +15,22 @@ class HttpClientFull
   def get_all(url:,record_name:)
     offset = 0
     output = get_range(url: url, offset: offset)
-    while output['total_record_count'] > @limit + offset
-      offset = offset + @limit
-      my_output = get_range(url: url, offset: offset) 
-      my_output[record_name].each {|x| output[record_name].push(x)}
-    end 
-    output
+    if output.status == 200
+      body = JSON.parse(output.body)
+      while  body['total_record_count'] > @limit + offset
+        offset = offset + @limit
+        my_output = get_range(url: url, offset: offset) 
+        if my_output.status == 200
+          my_body = JSON.parse(my_output.body)
+          my_body[record_name].each {|x| body[record_name].push(x)}
+        else
+          return my_output #return error
+        end
+      end 
+      Response.new(body: body.to_json) #return good response
+    else
+      output #return error
+    end
   end 
 
   def symbol(url)

@@ -1,7 +1,8 @@
+require './spec/doubles/excon_response_double'
 class LoansDouble
   def initialize(uniqname:)
   end
   def get
-    JSON.parse(File.read('./spec/fixtures/loans.json'))  
+    ExconResponseDouble.new(body: File.read('./spec/fixtures/loans.json'))
   end
 end

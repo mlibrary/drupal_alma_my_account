@@ -1,4 +1,5 @@
 require './app/models/http_client'
+require './app/models/response'
 require 'date'
 
 class Patron
@@ -8,9 +9,11 @@ class Patron
     @client = client
   end
   def list
-    patron = @client.get("/users/#{@uniqname}?user_id_type=all_unique&view=full&expand=none")
-    contact_info = ContactInfo.new(patron['contact_info'])
-   { 
+    response = @client.get("/users/#{@uniqname}?user_id_type=all_unique&view=full&expand=none")
+    if response.status == 200
+      patron = JSON.parse(response.body)
+      contact_info = ContactInfo.new(patron['contact_info'])
+      Response.new(body:{   
          'uniqname' => patron['primary_id'], 
          'first_name' => patron['first_name'], #z303-name
          'last_name' => patron['last_name'], #z303-name
@@ -25,7 +28,10 @@ class Patron
          'zip' => contact_info.zip, #z304-zip
          'phone' => contact_info.phone, #z304-telephone
          'expires' => format_date(patron['expiry_date']), #z305-expiry-date
-    }
+      })
+    else
+      response
+    end
   end
 
   private

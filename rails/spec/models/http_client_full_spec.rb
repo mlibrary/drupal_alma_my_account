@@ -1,6 +1,7 @@
 require 'spec_helper'
 require './app/models/http_client_full'
 require './spec/doubles/http_client_get_double'
+require './spec/doubles/excon_response_double'
 require 'json'
 require 'byebug'
 
@@ -26,13 +27,13 @@ end
 describe HttpClientFull, 'get_all' do
   it "gets all of a given get" do
     dbl = HttpClientGetDouble.new({
-      '/users/jbister/loans?limit=1&offset=0' => JSON.parse(File.read('./spec/fixtures/jbister_loans0.json')),
-      '/users/jbister/loans?limit=1&offset=1' => JSON.parse(File.read('./spec/fixtures/jbister_loans1.json')),
+      '/users/jbister/loans?limit=1&offset=0' => ExconResponseDouble.new(body: File.read('./spec/fixtures/jbister_loans0.json')),
+      '/users/jbister/loans?limit=1&offset=1' => ExconResponseDouble.new(body: File.read('./spec/fixtures/jbister_loans1.json')),
     })
 
     client = HttpClientFull.new(client: dbl, limit: 1)
     output = client.get_all(url: '/users/jbister/loans', record_name:'item_loan')
-    expect(output).to eq(JSON.parse(File.read('./spec/fixtures/loans.json')))
+    expect(output.body).to eq(JSON.parse(File.read('./spec/fixtures/loans.json')).to_json)
   end
 end
 describe HttpClientFull, 'symbol(url)' do

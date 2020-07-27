@@ -23,18 +23,19 @@ describe LoanRenewer, 'renew' do
     }) 
     renewer = LoanRenewer.new(client: client, loans_class: LoansDouble)
     result = renewer.renew(uniqname: 'jbister', barcode: 67576) 
-    expect(result).to eq("Renewed: item renewed")
+    expect(result.status).to eq(200)
+    expect(result.body).to eq("Renewed: item renewed")
   end
 
   it "returns error message if there is one" do
-    response = ExconResponseDouble.new(body: File.read("./spec/fixtures/renew_error.json"))
+    response = ExconResponseDouble.new(body: File.read("./spec/fixtures/renew_error.json"), status: 400)
     client = HttpClientPostDouble.new({
       "/users/jbister/loans/1332733700000521?op=renew" => response
     }) 
     renewer = LoanRenewer.new(client: client, loans_class: LoansDouble)
     result = renewer.renew(uniqname: 'jbister', barcode: 67576) 
-  
-    expect(result).to eq('Not Renewed: Cannot renew loan:  1346144360000521 - Item renew period exceeded.')
+    expect(result.status).to eq(400) 
+    expect(result.body).to eq('Not Renewed: Cannot renew loan:  1346144360000521 - Item renew period exceeded.')
   end
   it "handles timeout" do
     response = ExconResponseDouble.new(body: "", status: 503)
@@ -43,7 +44,8 @@ describe LoanRenewer, 'renew' do
     }) 
     renewer = LoanRenewer.new(client: client, loans_class: LoansDouble)
     result = renewer.renew(uniqname: 'jbister', barcode: 67576) 
-    expect(result).to eq("Not Renewed: Unable to renew item -- no response from server")
+    expect(result.status).to eq(503)
+    expect(result.body).to eq("Not Renewed: Unable to renew item -- no response from server")
   end
 end
 

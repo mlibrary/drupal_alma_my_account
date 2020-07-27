@@ -2,6 +2,7 @@ require 'spec_helper'
 require 'json'
 require './app/models/loans'
 require './spec/doubles/http_client_get_double'
+require './spec/doubles/excon_response_double'
 
 describe Loans, 'initialize' do
   it "initializes with uniqname" do
@@ -11,12 +12,13 @@ describe Loans, 'initialize' do
 end
 describe Loans, 'list' do
   before(:each) do 
+    @loans = JSON.parse(File.read('./spec/fixtures/loans.json'))
     @requests = {
-      '/users/jbister/loans' => JSON.parse(File.read('./spec/fixtures/loans.json')),
+      '/users/jbister/loans' => ExconResponseDouble.new(body: @loans.to_json),
       '/bibs/991246960000541/holdings/225047730000541/items/235047720000541' =>
-        JSON.parse(File.read('./spec/fixtures/basics_of_singing_item.json')),
+        ExconResponseDouble.new(body: File.read('./spec/fixtures/basics_of_singing_item.json')),
       '/bibs/991408490000541/holdings/229209090000521/items/235561180000541' =>
-        JSON.parse(File.read('./spec/fixtures/plain_words_on_singing_item.json')),
+        ExconResponseDouble.new(body: File.read('./spec/fixtures/plain_words_on_singing_item.json')),
     }
     @expected_output = 
       [
@@ -54,17 +56,18 @@ describe Loans, 'list' do
   it "returns correct number of items list of loans" do
     dbl = HttpClientGetDouble.new(@requests)
     loans = Loans.new(uniqname: 'jbister', client: dbl)
-    expect(loans.list.count).to eq(2) 
+    expect(loans.list.body.count).to eq(2) 
   end
   it "reutrns correct items" do
     dbl = HttpClientGetDouble.new(@requests)
     loans = Loans.new(uniqname: 'jbister', client: dbl)
-    expect(loans.list).to eq(@expected_output) 
+    expect(loans.list.body).to eq(@expected_output) 
   end
   it "handles empty loans" do
-    @requests[@requests.keys[0]]['total_record_count'] = 0
-    dbl = HttpClientGetDouble.new(@requests)
+    @loans['total_record_count'] = 0
+    resp = ExconResponseDouble.new(body: @loans.to_json)
+    dbl = HttpClientGetDouble.new({@requests.keys[0] => resp})
     loans = Loans.new(uniqname: 'jbister', client: dbl)
-    expect(loans.list).to eq([])
+    expect(loans.list.body).to eq([])
   end
 end

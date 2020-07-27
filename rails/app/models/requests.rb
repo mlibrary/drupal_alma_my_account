@@ -1,4 +1,5 @@
-require './app/models/http_client'
+require './app/models/http_client_full'
+require './app/models/response'
 require 'date'
 
 class Requests
@@ -11,21 +12,26 @@ class Requests
     @client.get_all(url: "/users/#{@uniqname}/requests", record_name: 'user_request')
   end
   def list
-    requests = get
-    output = {'B' => [], 'H' => [] }
-    return output if requests['total_record_count'] == 0
+    response = get
+    if response.status == 200
+      requests = JSON.parse(response.body)
+      output = {'B' => [], 'H' => [] }
+      return Response.new(body: output) if requests['total_record_count'] == 0
 
-    requests['user_request'].map do |request|
-      request_inst = Request.for(request)
-      
-      case request_inst.class.name
-      when 'HoldRequest'
-        output['H'].push(request_inst.to_h) 
-      when 'BookingRequest'
-        output['B'].push(request_inst.to_h) 
+      requests['user_request'].map do |request|
+        request_inst = Request.for(request)
+        
+        case request_inst.class.name
+        when 'HoldRequest'
+          output['H'].push(request_inst.to_h) 
+        when 'BookingRequest'
+          output['B'].push(request_inst.to_h) 
+        end
       end
+      Response.new(body: output)
+    else
+      response
     end
-    output
   end
 
   private

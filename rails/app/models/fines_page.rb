@@ -1,9 +1,11 @@
 require './app/models/fines'
 require './app/models/charge'
+require './app/models/response'
 
 class FinesPage < Fines
   def list
-    return [] if @fines.nil?
+    return @response if @response.status != 200
+    return Response.new(body:[]) if @fines.nil?
 
     charges = []
     payments = []
@@ -15,13 +17,14 @@ class FinesPage < Fines
         end
       end
     end
-    
-    {
-      'count' => charges.count,
-      'amount' => @raw['total_sum'],
-      'charges' => charges,
-      'payments' => payments
-    }
+    Response.new(body: 
+      {
+        'count' => charges.count,
+        'amount' => @body['total_sum'],
+        'charges' => charges,
+        'payments' => payments
+      }
+    )
   end
 end
 

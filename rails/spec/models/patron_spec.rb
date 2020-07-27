@@ -2,6 +2,7 @@ require 'spec_helper'
 require 'json'
 require './app/models/patron'
 require './spec/doubles/http_client_get_double'
+require './spec/doubles/excon_response_double'
 
 describe Patron, 'initialize' do
   it "initializes with uniqname" do
@@ -11,8 +12,9 @@ describe Patron, 'initialize' do
 end
 describe Patron, 'list' do
   before(:each) do
+    @body = JSON.parse(File.read('./spec/fixtures/johns_patron.json'))
     @requests = {
-      '/users/johns?user_id_type=all_unique&view=full&expand=none' => JSON.parse(File.read('./spec/fixtures/johns_patron.json'))
+      '/users/johns?user_id_type=all_unique&view=full&expand=none' => ExconResponseDouble.new(body: @body.to_json)
     }
   end
   it "gets correct patron info" do
@@ -34,26 +36,29 @@ describe Patron, 'list' do
       }
    dbl = HttpClientGetDouble.new(@requests)
    patron = Patron.new(uniqname: 'johns', client: dbl)
-   expect(patron.list).to eq(expected_patron)
+   expect(patron.list.body).to eq(expected_patron)
   end
   it 'handles empty phone block' do
-    @requests.values[0]['contact_info']['phone'] = []
-   dbl = HttpClientGetDouble.new(@requests)
+   @body['contact_info']['phone'] = []
+   resp = ExconResponseDouble.new(body: @body.to_json)
+   dbl = HttpClientGetDouble.new({@requests.keys[0] => resp})
    patron = Patron.new(uniqname: 'johns', client: dbl)
-   expect(patron.list['phone']).to eq('')
+   expect(patron.list.body['phone']).to eq('')
   end
   it 'handles empty email block' do
-    @requests.values[0]['contact_info']['email'] = []
-   dbl = HttpClientGetDouble.new(@requests)
+   @body['contact_info']['email'] = []
+   resp = ExconResponseDouble.new(body: @body.to_json)
+   dbl = HttpClientGetDouble.new({@requests.keys[0] => resp})
    patron = Patron.new(uniqname: 'johns', client: dbl)
-   expect(patron.list['email']).to eq('')
+   expect(patron.list.body['email']).to eq('')
   end
 
   it 'handles missing expiry_date' do
-   @requests.values[0].delete('expiry_date')
-   dbl = HttpClientGetDouble.new(@requests)
+   @body.delete('expiry_date')
+   resp = ExconResponseDouble.new(body: @body.to_json)
+   dbl = HttpClientGetDouble.new({@requests.keys[0] => resp})
    patron = Patron.new(uniqname: 'johns', client: dbl)
-   expect(patron.list['expires']).to eq('')
+   expect(patron.list.body['expires']).to eq('')
   end 
 end
 

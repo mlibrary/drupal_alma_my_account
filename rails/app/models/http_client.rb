@@ -10,16 +10,14 @@ class HttpClient
     response = Excon.get( full_url(url), headers: @headers ) 
     case response.status
     when 200
-      JSON.parse(response.body)
+      response
     when 302
       HttpClient.new.get(response.headers['Location'])
+    else
+      response
     end
   end
 
-  def put(url)
-    response = Excon.put( full_url(url), headers: @headers )
-    JSON.parse(response.body)
-  end
   def post(url)
     Excon.post( full_url(url), headers: @headers )
   end

@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def index
     patron = Patron.new(uniqname: params[:id])
-    render json: patron.list
+    resp = patron.list
+    render json: resp.body, status: resp.status
   end
 end

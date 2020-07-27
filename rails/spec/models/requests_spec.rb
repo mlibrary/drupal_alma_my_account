@@ -2,6 +2,7 @@ require 'spec_helper'
 require 'json'
 require './app/models/requests'
 require './spec/doubles/http_client_get_double'
+require './spec/doubles/excon_response_double'
 
 describe Requests, 'initialize' do
   it "initializes with uniqname" do
@@ -11,9 +12,11 @@ describe Requests, 'initialize' do
 end
 describe Requests, 'list' do
   before(:each) do 
+    @holds = JSON.parse(File.read('./spec/fixtures/connie_holds.json'))
+    @bookings = JSON.parse(File.read('./spec/fixtures/jbister_requests.json'))
     @requests = {
-      '/users/connie/requests' => JSON.parse(File.read('./spec/fixtures/connie_holds.json')),
-      '/users/jbister/requests' => JSON.parse(File.read('./spec/fixtures/jbister_requests.json')),
+      '/users/connie/requests' => ExconResponseDouble.new(body: @holds.to_json),
+      '/users/jbister/requests' => ExconResponseDouble.new(body: @bookings.to_json),
     }
     @expected_hold_output = {
       'B' => [],  
@@ -84,24 +87,25 @@ describe Requests, 'list' do
   it "returns correct number of items list of holds" do
     dbl = HttpClientGetDouble.new(@requests)
     requests = Requests.new(uniqname: 'connie', client: dbl)
-    expect(requests.list.count).to eq(2) 
-    expect(requests.list['B'].count).to eq(0) 
-    expect(requests.list['H'].count).to eq(1) 
+    expect(requests.list.body.count).to eq(2) 
+    expect(requests.list.body['B'].count).to eq(0) 
+    expect(requests.list.body['H'].count).to eq(1) 
   end
   it "reutrns correct items" do
     dbl = HttpClientGetDouble.new(@requests)
     requests = Requests.new(uniqname: 'connie', client: dbl)
-    expect(requests.list).to eq(@expected_hold_output) 
+    expect(requests.list.body).to eq(@expected_hold_output) 
   end
   it "handles empty request" do
-    @requests[@requests.keys[0]]['total_record_count'] = 0
-    dbl = HttpClientGetDouble.new(@requests)
+    @holds['total_record_count'] = 0
+    resp = ExconResponseDouble.new(body: @holds.to_json)
+    dbl = HttpClientGetDouble.new({@requests.keys[0] => resp})
     requests = Requests.new(uniqname: 'connie', client: dbl)
-    expect(requests.list).to eq({'B' => [],'H' => []})
+    expect(requests.list.body).to eq({'B' => [],'H' => []})
   end
   it "handles bookings" do
     dbl = HttpClientGetDouble.new(@requests)
     requests = Requests.new(uniqname: 'jbister', client: dbl)
-    expect(requests.list).to eq(@expected_booking_output) 
+    expect(requests.list.body).to eq(@expected_booking_output) 
   end
 end

@@ -1,3 +1,4 @@
+require 'date'
 class Fine
   def initialize(main:, bib:)
       @bib = bib

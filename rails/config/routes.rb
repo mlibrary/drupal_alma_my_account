@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       get '/', to: 'users#index'
       get 'fines/email', to: 'fines#email'
       get 'fines', to: 'fines#index'
-      put 'fines', to: 'fines#pay'
+      post 'fines', to: 'fines#pay'
       get 'requests', to: 'requests#index'
       get 'loans', to: 'loans#index'
       delete 'requests/:request_id', to: 'requests#delete' 

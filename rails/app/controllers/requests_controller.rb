@@ -1,7 +1,8 @@
 class RequestsController < ApplicationController
   def index
     requests = Requests.new(uniqname: params[:id])
-    render json: requests.list
+    resp = requests.list
+    render json: resp.body, status: resp.status
   end
   def delete
     RequestCanceler.new().cancel(uniqname: params[:id], request_id: params[:request_id]) 
