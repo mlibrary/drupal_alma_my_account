@@ -1,6 +1,7 @@
 require 'spec_helper'
 require './app/models/request_canceler'
 require './spec/doubles/http_client_delete_double'
+require './spec/doubles/excon_response_double'
 
 describe RequestCanceler, 'initialize' do
   it "has default client of HttpClient instance" do
@@ -10,12 +11,20 @@ describe RequestCanceler, 'initialize' do
 end
 
 describe RequestCanceler, 'initialize' do
-  it "renews a loan for a given user" do
+  it "cancels a request for a given user" do
     client = HttpClientDeleteDouble.new({
-      "/users/connie/requests/1332745510000521?reason=patrons_request" => "success"
+      "/users/connie/requests/1332745510000521?reason=patrons_request" => ExconResponseDouble.new(body: '{}', status: 204)
     }) 
     canceler = RequestCanceler.new(client)
     result = canceler.cancel(uniqname: 'connie', request_id: '1332745510000521') 
-    expect(result).to eq('success')
+    expect(result).to eq(true)
+  end
+  it "handles a failed request" do
+    client = HttpClientDeleteDouble.new({
+      "/users/connie/requests/1332745510000521?reason=patrons_request" => ExconResponseDouble.new(body:File.read('./spec/fixtures/cancel_request_fail.json'), status: 400)
+    }) 
+    canceler = RequestCanceler.new(client)
+    result = canceler.cancel(uniqname: 'connie', request_id: '1332745510000521') 
+    expect(result).to eq(false)
   end
 end

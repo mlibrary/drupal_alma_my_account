@@ -7,6 +7,16 @@ class RequestCanceler
   end
   def cancel(uniqname:, request_id:)
     url = "/users/#{uniqname}/requests/#{request_id}?reason=patrons_request"
-    @client.delete(url)
+    response =  @client.delete(url)
+    if response.status == 503
+       false
+    else
+      body = JSON.parse(response.body)
+      if body["errorsExist"]
+        return false
+      else
+        return true
+      end 
+    end 
   end
 end

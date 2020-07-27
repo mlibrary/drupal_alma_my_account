@@ -25,8 +25,7 @@ class HttpClient
   end
 
   def delete(url)
-    response = Excon.delete( full_url(url), headers: @headers )
-    response.data.to_json
+    Excon.delete( full_url(url), headers: @headers )
   end
   private
   def full_url(url)
