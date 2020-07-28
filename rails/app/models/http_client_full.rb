@@ -12,7 +12,7 @@ class HttpClientFull
     @limit = limit
   end
 
-  def get_all(url:,record_name:)
+  def get_all(url:, record_key:)
     offset = 0
     output = get_range(url: url, offset: offset)
     if output.status == 200
@@ -22,7 +22,7 @@ class HttpClientFull
         my_output = get_range(url: url, offset: offset) 
         if my_output.status == 200
           my_body = JSON.parse(my_output.body)
-          my_body[record_name].each {|x| body[record_name].push(x)}
+          my_body[record_key].each {|x| body[record_key].push(x)}
         else
           return my_output #return error
         end

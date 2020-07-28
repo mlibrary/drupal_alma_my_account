@@ -6,7 +6,7 @@ class HttpClientGetDouble
   def get(url)
     @requests[url]
   end
-  def get_all(url:,record_name:)
+  def get_all(url:, record_key:)
     @requests[url]
   end
 end

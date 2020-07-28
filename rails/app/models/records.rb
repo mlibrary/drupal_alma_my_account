@@ -6,7 +6,7 @@ class Records
   def initialize(uniqname:, client: HttpClientFull.new)
     @uniqname = uniqname
     @client = client
-    @response = @client.get_all(url:url, record_name: record_key)
+    @response = @client.get_all(url:url, record_key: record_key)
     @body = JSON.parse(@response.body) 
     if @response.status == 200 && @body[record_key]
       @records = fetch 

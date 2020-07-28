@@ -32,7 +32,7 @@ describe HttpClientFull, 'get_all' do
     })
 
     client = HttpClientFull.new(client: dbl, limit: 1)
-    output = client.get_all(url: '/users/jbister/loans', record_name:'item_loan')
+    output = client.get_all(url: '/users/jbister/loans', record_key:'item_loan')
     expect(output.body).to eq(JSON.parse(File.read('./spec/fixtures/loans.json')).to_json)
   end
 end
