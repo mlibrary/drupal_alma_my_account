@@ -6,7 +6,8 @@ require './spec/doubles/excon_response_double'
 
 describe Requests, 'initialize' do
   it "initializes with uniqname" do
-    requests = Requests.new(uniqname: 'testuser')
+    req = { '/users/testuser/requests' => ExconResponseDouble.new() }
+    requests = Requests.new(uniqname: 'testuser', client: HttpClientGetDouble.new(req) )
     expect(requests.uniqname).to eq('testuser')
   end
 end
@@ -98,6 +99,7 @@ describe Requests, 'list' do
   end
   it "handles empty request" do
     @holds['total_record_count'] = 0
+    @holds.delete('user_request')
     resp = ExconResponseDouble.new(body: @holds.to_json)
     dbl = HttpClientGetDouble.new({@requests.keys[0] => resp})
     requests = Requests.new(uniqname: 'connie', client: dbl)

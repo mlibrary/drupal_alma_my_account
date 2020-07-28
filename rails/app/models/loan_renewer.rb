@@ -3,29 +3,25 @@ require './app/models/loans'
 
 class LoanRenewer
   attr_reader :client, :loans_class
-  def initialize(client: HttpClient.new, loans_class: Loans)
+  def initialize(uniqname:, client: HttpClient.new, loans_class: Loans)
     @client = client
     @loans_class = loans_class
+    @uniqname = uniqname
+    @loans = @loans_class.new(uniqname: @uniqname)
   end
-  def renew(uniqname:, barcode:)
-    loans_response = loans_class.new(uniqname: uniqname).get
-    if loans_response.status == 200
-      loans = JSON.parse(loans_response.body)
-      loan = loans['item_loan'].find{ |x| x['item_barcode'].to_s == barcode.to_s}
-      url = "/users/#{uniqname}/loans/#{loan['loan_id']}?op=renew"
-      response =  @client.post(url)
-      if response.status == 503
-          Response.new(body: "Not Renewed: Unable to renew item -- no response from server", status: 503)
-      else
-        body = JSON.parse(response.body)
-        if body["errorsExist"]
-          Response.new(body: "Not Renewed: #{body['errorList']['error'].first['errorMessage']}", status: response.status)
-        else
-          Response.new(body:"Renewed: item renewed")
-        end 
-      end 
+  def renew(barcode:)
+    return Response.new(body: "Not Renewed", status: @loans.response.status) if @loans.response.status != 200
+    loan = @loans.records.find{ |x| x[:main]['item_barcode'].to_s == barcode.to_s}[:main]
+    url = "/users/#{@uniqname}/loans/#{loan['loan_id']}?op=renew"
+    response =  @client.post(url)
+    case response.status
+    when 503
+      Response.new(body: "Not Renewed: Unable to renew item -- no response from server", status: 503)
+    when 200
+      Response.new(body:"Renewed: item renewed")
     else
-      Response.new(body: "Not Renewed", status: loans_response.status)
+      body = JSON.parse(response.body)
+      Response.new(body: "Not Renewed: #{body['errorList']['error'].first['errorMessage']}", status: response.status)
     end
   end
 end

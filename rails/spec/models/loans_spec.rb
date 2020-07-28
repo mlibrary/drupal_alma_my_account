@@ -6,7 +6,8 @@ require './spec/doubles/excon_response_double'
 
 describe Loans, 'initialize' do
   it "initializes with uniqname" do
-    loans = Loans.new(uniqname: 'testuser')
+    requests = { '/users/testuser/loans' => ExconResponseDouble.new() }
+    loans = Loans.new(uniqname: 'testuser', client: HttpClientGetDouble.new(requests))
     expect(loans.uniqname).to eq('testuser')
   end
 end
@@ -18,6 +19,10 @@ describe Loans, 'list' do
       '/bibs/991246960000541/holdings/225047730000541/items/235047720000541' =>
         ExconResponseDouble.new(body: File.read('./spec/fixtures/basics_of_singing_item.json')),
       '/bibs/991408490000541/holdings/229209090000521/items/235561180000541' =>
+        ExconResponseDouble.new(body: File.read('./spec/fixtures/plain_words_on_singing_item.json')),
+      '/items?item_barcode=67576' =>
+        ExconResponseDouble.new(body: File.read('./spec/fixtures/basics_of_singing_item.json')),
+      '/items?item_barcode=0919242913' =>
         ExconResponseDouble.new(body: File.read('./spec/fixtures/plain_words_on_singing_item.json')),
     }
     @expected_output = 
@@ -65,6 +70,7 @@ describe Loans, 'list' do
   end
   it "handles empty loans" do
     @loans['total_record_count'] = 0
+    @loans.delete('item_loan')
     resp = ExconResponseDouble.new(body: @loans.to_json)
     dbl = HttpClientGetDouble.new({@requests.keys[0] => resp})
     loans = Loans.new(uniqname: 'jbister', client: dbl)

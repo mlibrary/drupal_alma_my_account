@@ -74,7 +74,7 @@ describe FinesPage, 'list' do before(:each) do
     @requests[@requests.keys[0]] = ExconResponseDouble.new(body: {'total_record_count' => 0 }.to_json)
     dbl = HttpClientGetDouble.new(@requests)
     fines = FinesPage.new(uniqname: 'jbister', client: dbl)
-    expect(fines.list.body).to eq([]) 
+    expect(fines.list.body).to eq({'amount'=>nil,'count'=>0,'charges'=>[],'payments'=>[]}) 
   end
   it "handles error request" do
     @not_found = JSON.parse(File.read('./spec/fixtures/user_not_found.json') )

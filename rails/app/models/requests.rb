@@ -1,57 +1,33 @@
 require './app/models/http_client_full'
 require './app/models/response'
+require './app/models/records'
 require 'date'
 
-class Requests
-  attr_reader :uniqname
-  def initialize(uniqname:, client: HttpClientFull.new)
-    @uniqname = uniqname
-    @client = client
-  end
+class Requests < Records
+
   def url
     "/users/#{@uniqname}/requests"
   end
-  def record_name
+
+  def record_key
     "user_request"
   end
-  def get
-    @client.get_all(url: url, record_name: record_name)
-  end
+
   def list
-    response = get
-    if response.status == 200
-      things = JSON.parse(response.body)
-      output = {'B' => [], 'H' => [] }
-      return Response.new(body: output) if things['total_record_count'] == 0
-
-      things[record_name].each.with_index do |thing, index|
-        thing_inst = Request.for(thing)
-        
-        case thing_inst.class.name
-        when 'HoldRequest'
-          output['H'].push(thing_inst.to_h) 
-        when 'BookingRequest'
-          output['B'].push(thing_inst.to_h) 
-        end
+    return @response if @response.status != 200
+    output = {'B' => [], 'H' => [] }
+    @records.each.with_index do |record, index|
+      record_inst = Request.for(record)
+      case record_inst.class.name
+      when 'HoldRequest'
+        output['H'].push(record_inst.to_h) 
+      when 'BookingRequest'
+        output['B'].push(record_inst.to_h) 
       end
-      Response.new(body: output)
-    else
-      response
     end
+    Response.new(body: output)
   end
 
-  private
- 
-  def format_date(date)
-    DateTime.parse(date).strftime("%m/%d/%Y") if date
-  end
-
-  def type(request_type)
-    case request_type
-    when 'HOLD'
-      'H-01'
-    end
-  end
 end
 
 class Request
