@@ -7,31 +7,29 @@ class Patron
   def initialize(uniqname:, client: HttpClient.new)
     @uniqname = uniqname
     @client = client
+    @response = @client.get("/users/#{@uniqname}?user_id_type=all_unique&view=full&expand=none")
+    @body = JSON.parse(@response.body)
   end
   def list
-    response = @client.get("/users/#{@uniqname}?user_id_type=all_unique&view=full&expand=none")
-    if response.status == 200
-      patron = JSON.parse(response.body)
-      contact_info = ContactInfo.new(patron['contact_info'])
-      Response.new(body:{   
-         'uniqname' => patron['primary_id'], 
-         'first_name' => patron['first_name'], #z303-name
-         'last_name' => patron['last_name'], #z303-name
-         'email' => contact_info.email, #z304-email
-         'college' => nil, #Don't know #z303-home-library (and some other stuff?)
-         'bor_status' => nil, #Don't know #z305-bor-status
-         'booking_permission' => nil, #z305-booking-permission
-         'campus' => patron['campus_code']['value'], #z303-profile-id
-         'barcode' => nil, #z303-id (aleph id for user)
-         'address_1' => contact_info.address_1, #z304-address-1
-         'address_2' => contact_info.address_2, #z304-address-2
-         'zip' => contact_info.zip, #z304-zip
-         'phone' => contact_info.phone, #z304-telephone
-         'expires' => format_date(patron['expiry_date']), #z305-expiry-date
-      })
-    else
-      response
-    end
+    return @response if @response.status != 200
+    patron = JSON.parse(@response.body)
+    contact_info = ContactInfo.new(@body['contact_info'])
+    Response.new(body:{   
+       'uniqname' => @body['primary_id'], 
+       'first_name' => @body['first_name'], #z303-name
+       'last_name' => @body['last_name'], #z303-name
+       'email' => contact_info.email, #z304-email
+       'college' => nil, #Don't know #z303-home-library (and some other stuff?)
+       'bor_status' => nil, #Don't know #z305-bor-status
+       'booking_permission' => nil, #z305-booking-permission
+       'campus' => @body['campus_code']['value'], #z303-profile-id
+       'barcode' => nil, #z303-id (aleph id for user)
+       'address_1' => contact_info.address_1, #z304-address-1
+       'address_2' => contact_info.address_2, #z304-address-2
+       'zip' => contact_info.zip, #z304-zip
+       'phone' => contact_info.phone, #z304-telephone
+       'expires' => format_date(@body['expiry_date']), #z305-expiry-date
+    })
   end
 
   private

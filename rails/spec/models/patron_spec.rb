@@ -6,7 +6,7 @@ require './spec/doubles/excon_response_double'
 
 describe Patron, 'initialize' do
   it "initializes with uniqname" do
-    patron = Patron.new(uniqname: 'testuser')
+    patron = Patron.new(uniqname: 'testuser', client: HttpClientGetDouble.new)
     expect(patron.uniqname).to eq('testuser')
   end
 end
