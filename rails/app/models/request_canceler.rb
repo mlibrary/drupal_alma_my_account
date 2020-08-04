@@ -1,3 +1,4 @@
+require 'json'
 require './app/models/http_client'
 
 class RequestCanceler
@@ -6,7 +7,7 @@ class RequestCanceler
     @client = client
   end
   def cancel(uniqname:, request_id:)
-    url = "/users/#{uniqname}/requests/#{request_id}?reason=patrons_request"
+    url = "/users/#{uniqname}/requests/#{request_id}?reason=CancelledAtPatronRequest"
     response =  @client.delete(url)
     if response.status == 503
        false

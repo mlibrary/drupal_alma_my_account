@@ -1,6 +1,6 @@
 require './app/models/records_with_bib'
-
 class Fines < RecordsWithBib
+
   def url
     "/users/#{@uniqname}/fees"
   end
