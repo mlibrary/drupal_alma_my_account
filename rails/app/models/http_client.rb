@@ -1,3 +1,4 @@
+require 'json'
 class HttpClient
   def initialize()
     @headers = {
@@ -18,6 +19,9 @@ class HttpClient
     end
   end
 
+  def put(url, body)
+    Excon.put( full_url(url), body: body.to_json, headers: @headers )
+  end
   def post(url)
     Excon.post( full_url(url), headers: @headers )
   end
