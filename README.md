@@ -5,7 +5,7 @@ This is the repository for the my_account module for the library website. It use
 ## To Set up for Development
 
 1. Clone the github repo
-`$ git clone git@github.com:mlibrary/my_account.git`
+`$ git clone git@github.com:mlibrary/drupal_alma_my_account.git`
 2. Set up the environment variables. 
 ```bash
 $ mkdir -p .env/development
