@@ -71,7 +71,7 @@
     }
 
     public function CancelHold($request_id){
-      $url = "/users/{$this->uniqname}/requests/{$request_id}?reason=patrons_request";
+      $url = "/users/{$this->uniqname}/requests/{$request_id}";
       return $this->del($url);
     }
     

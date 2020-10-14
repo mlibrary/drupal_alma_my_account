@@ -13,7 +13,7 @@ end
 describe RequestCanceler, 'initialize' do
   it "cancels a request for a given user" do
     client = HttpClientDeleteDouble.new({
-      "/users/connie/requests/1332745510000521?reason=patrons_request" => ExconResponseDouble.new(body: '{}', status: 204)
+      "/users/connie/requests/1332745510000521?reason=CancelledAtPatronRequest" => ExconResponseDouble.new(body: '{}', status: 204)
     }) 
     canceler = RequestCanceler.new(client)
     result = canceler.cancel(uniqname: 'connie', request_id: '1332745510000521') 
@@ -21,7 +21,7 @@ describe RequestCanceler, 'initialize' do
   end
   it "handles a failed request" do
     client = HttpClientDeleteDouble.new({
-      "/users/connie/requests/1332745510000521?reason=patrons_request" => ExconResponseDouble.new(body:File.read('./spec/fixtures/cancel_request_fail.json'), status: 400)
+      "/users/connie/requests/1332745510000521?reason=CancelledAtPatronRequest" => ExconResponseDouble.new(body:File.read('./spec/fixtures/cancel_request_fail.json'), status: 400)
     }) 
     canceler = RequestCanceler.new(client)
     result = canceler.cancel(uniqname: 'connie', request_id: '1332745510000521') 
