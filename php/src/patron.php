@@ -5,11 +5,13 @@
     public $amount = NULL;
     public $charges = NULL;
     public $payments = NULL;
+    public $raw = NULL;
     public function __construct($fines){
       $this->count = $fines['count'];
       $this->amount = $fines['amount'];
       $this->charges = $fines['charges'];
       $this->payments = $fines['payments'];
+			$this->raw = $fines;
     }
   }
   class MyPatron {
@@ -64,7 +66,8 @@
 
     public function Renew($barcode){
       $url = "/users/{$this->uniqname}/loans/{$barcode}/renew";
-      return $this->post($url);
+      $output = $this->post($url);
+      return $output['body'];
     }
 
     public function CancelHold($request_id){
